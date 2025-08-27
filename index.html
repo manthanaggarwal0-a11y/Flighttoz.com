@@ -2,14 +2,11 @@
 <section id="search" class="py-16 bg-white">
   <div class="max-w-3xl mx-auto bg-slate-50 p-8 rounded-2xl shadow">
     <h2 class="text-2xl font-bold mb-6">Search Flights</h2>
-
-    <form class="grid md:grid-cols-2 gap-4" onsubmit="return false;">
+    <form class="grid md:grid-cols-2 gap-4">
       <!-- From -->
-      <input id="from" type="text" placeholder="From (type city or code)" 
-             class="px-4 py-3 rounded-lg border" autocomplete="off"/>
+      <input list="airports" placeholder="From (e.g. DEL – New Delhi)" class="px-4 py-3 rounded-lg border"/>
       <!-- To -->
-      <input id="to" type="text" placeholder="To (type city or code)" 
-             class="px-4 py-3 rounded-lg border" autocomplete="off"/>
+      <input list="airports" placeholder="To (e.g. BOM – Mumbai)" class="px-4 py-3 rounded-lg border"/>
       <!-- Dates -->
       <input type="date" class="px-4 py-3 rounded-lg border"/>
       <input type="date" class="px-4 py-3 rounded-lg border"/>
@@ -22,73 +19,34 @@
       <!-- Passengers -->
       <input type="number" min="1" value="1" class="px-4 py-3 rounded-lg border"/>
       <!-- Submit -->
-      <button type="submit" class="md:col-span-2 bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-lg">
-        Show Deals
-      </button>
+      <button type="submit" class="md:col-span-2 bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-lg">Show Deals</button>
     </form>
 
-    <!-- Suggestion list -->
-    <ul id="suggestions" class="absolute bg-white border rounded-lg shadow mt-1 max-h-48 overflow-y-auto hidden"></ul>
+    <!-- Airport codes for autocomplete -->
+    <datalist id="airports">
+      <!-- India -->
+      <option value="DEL – New Delhi (Indira Gandhi Intl)">
+      <option value="BOM – Mumbai (Chhatrapati Shivaji)">
+      <option value="BLR – Bengaluru (Kempegowda Intl)">
+      <option value="MAA – Chennai (Chennai Intl)">
+      <option value="CCU – Kolkata (Netaji Subhas Chandra Bose)">
+      <!-- Canada -->
+      <option value="YYZ – Toronto (Pearson Intl)">
+      <option value="YVR – Vancouver (Vancouver Intl)">
+      <option value="YUL – Montreal (Trudeau Intl)">
+      <option value="YYC – Calgary (Calgary Intl)">
+      <option value="YEG – Edmonton (Edmonton Intl)">
+      <!-- USA -->
+      <option value="JFK – New York (John F. Kennedy Intl)">
+      <option value="EWR – New Jersey (Newark Intl)">
+      <option value="LAX – Los Angeles (LAX Intl)">
+      <option value="ORD – Chicago (O’Hare Intl)">
+      <option value="DFW – Dallas (Fort Worth Intl)">
+      <option value="SFO – San Francisco (SFO Intl)">
+      <option value="MIA – Miami (Miami Intl)">
+      <option value="BOS – Boston (Logan Intl)">
+    </datalist>
 
     <p class="text-xs text-slate-500 mt-2">*Live API booking coming soon.</p>
   </div>
 </section>
-
-<script>
-// Airport dataset (India + Canada + USA)
-const airports = [
-  { code: "DEL", city: "New Delhi", name: "Indira Gandhi Intl" },
-  { code: "BOM", city: "Mumbai", name: "Chhatrapati Shivaji Intl" },
-  { code: "BLR", city: "Bengaluru", name: "Kempegowda Intl" },
-  { code: "YYZ", city: "Toronto", name: "Pearson Intl" },
-  { code: "YVR", city: "Vancouver", name: "Vancouver Intl" },
-  { code: "YUL", city: "Montreal", name: "Trudeau Intl" },
-  { code: "JFK", city: "New York", name: "John F. Kennedy Intl" },
-  { code: "EWR", city: "New Jersey", name: "Newark Intl" },
-  { code: "LAX", city: "Los Angeles", name: "LAX Intl" },
-  { code: "SFO", city: "San Francisco", name: "SFO Intl" },
-];
-
-// Attach autocomplete
-function attachAutocomplete(input) {
-  const suggestions = document.getElementById("suggestions");
-
-  input.addEventListener("input", function () {
-    const query = this.value.toLowerCase();
-    if (query.length < 2) {
-      suggestions.classList.add("hidden");
-      return;
-    }
-
-    // Filter airports
-    const matches = airports.filter(
-      a => a.code.toLowerCase().startsWith(query) || 
-           a.city.toLowerCase().startsWith(query)
-    );
-
-    // Show results
-    if (matches.length) {
-      suggestions.innerHTML = matches
-        .map(a => `<li class="px-4 py-2 hover:bg-slate-100 cursor-pointer" 
-                     data-value="${a.code} – ${a.city}">
-                     ${a.code} – ${a.city} (${a.name})
-                   </li>`)
-        .join("");
-      suggestions.classList.remove("hidden");
-
-      // On click, set value
-      [...suggestions.querySelectorAll("li")].forEach(li => {
-        li.addEventListener("click", () => {
-          input.value = li.dataset.value;
-          suggestions.classList.add("hidden");
-        });
-      });
-    } else {
-      suggestions.classList.add("hidden");
-    }
-  });
-}
-
-attachAutocomplete(document.getElementById("from"));
-attachAutocomplete(document.getElementById("to"));
-</script>
