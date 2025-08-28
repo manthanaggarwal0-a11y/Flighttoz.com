@@ -1,191 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset='utf-8'>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Flight to Z — Book Smart, Fly Cheap</title>
-  <meta name="description" content="Flight to Z — Find affordable flights worldwide. Search, compare and book your next trip.">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root{--brand-1:#06b6d4;--brand-2:#0891b2}
-    body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;margin:0;background:#f8fafc;color:#0f172a}
-    .topbar{background:#0f172a;color:#fff;padding:8px 16px;font-size:14px}
-    .header{background:#fff;border-bottom:1px solid #e6eef2;padding:12px 16px}
-    .container{max-width:1100px;margin:0 auto;padding:0 16px}
-    .hero{position:relative;background:linear-gradient(180deg,var(--brand-1),var(--brand-2));color:#fff;padding:64px 16px 120px;overflow:hidden}
-    .title{font-size:32px;font-weight:800;margin:0;line-height:1.05}
-    .subtitle{margin-top:10px;color:rgba(255,255,255,0.9);max-width:720px}
-    .bg-gif{position:absolute;right:-10%;top:10%;opacity:0.14;z-index:1;pointer-events:none}
-    .headplane{position:absolute;left:-10%;top:46%;z-index:5;width:84px;animation:fly 6.5s linear infinite;pointer-events:none}
-    @keyframes fly{0%{transform:translateX(-30vw) translateY(0)}50%{transform:translateX(50vw) translateY(-30px)}100%{transform:translateX(120vw) translateY(0)}}
-    .search-card{background:#fff;padding:20px;border-radius:12px;box-shadow:0 14px 40px rgba(2,6,23,0.08);transform:translateY(-60px);position:relative;z-index:6}
-    input,select{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef2;margin-top:6px;font-size:14px}
-    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    .grid-resp{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:16px}
-    .card{background:#fff;padding:14px;border-radius:10px;box-shadow:0 8px 20px rgba(2,6,23,0.06)}
-    .logo{height:48px;object-fit:contain}
-    .currency-switch{display:flex;gap:8px;align-items:center}
-    .switch-btn{padding:6px 10px;border-radius:8px;border:1px solid #dbeef3;background:#fff;cursor:pointer}
-    .book-btn{background:linear-gradient(90deg,var(--brand-1),var(--brand-2));color:#fff;padding:8px 12px;border-radius:8px;text-decoration:none}
-    .wh{position:fixed;right:18px;bottom:18px;background:#25d366;padding:12px;border-radius:50%;box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:999}
-    footer{background:#0f172a;color:#94a3b8;padding:28px 16px;margin-top:40px;text-align:center}
-    @media(max-width:800px){.grid-2{grid-template-columns:1fr}.hero{padding-bottom:90px}.headplane{width:56px}}
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Search</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <div class="topbar"><div class="container">✈️ Flight to Z — Book Smart · Fly Cheap • <a href="mailto:Sales@flighttoz.com" style="color:#fff;text-decoration:underline">Sales@flighttoz.com</a> • +91 70097 67211</div></div>
-  <header class="header"><div class="container" style="display:flex;align-items:center;justify-content:space-between">
-    <div style="display:flex;align-items:center;gap:12px">
-      <img src="logos/Air_India.png" alt="logo" style="height:44px;border-radius:6px;object-fit:cover">
-      <div><div style="font-weight:800">Flight to Z</div><div style="font-size:12px;color:#64748b;margin-top:2px">Book Smart · Fly Cheap</div></div>
-    </div>
-    <nav style="display:flex;gap:14px;align-items:center;color:#0f172a">
-      <a href="#search">Search</a><a href="#popular">Popular</a><a href="#contact">Contact</a>
-    </nav>
-  </div></header>
+<body class="bg-gray-100">
 
-  <section class="hero">
-    <div class="container">
-      <h1 class="title">Flight to Z — Book Smart, Fly Cheap</h1>
-      <p class="subtitle">Find affordable flights from major cities — India, Canada, USA, UK and beyond. Fast search, clear pricing, friendly support.</p>
-      <div style="margin-top:18px"><a href="#search" style="background:#fff;color:#0f172a;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:600">🔎 Search Flights</a></div>
+  <!-- Search -->
+  <section id="search" class="py-8 bg-white shadow">
+    <div class="max-w-3xl mx-auto bg-slate-50 p-8 rounded-2xl shadow">
+      <h2 class="text-2xl font-bold mb-6">Search Flights</h2>
+      <form id="searchForm" class="grid md:grid-cols-2 gap-4">
+        <!-- From -->
+        <input id="from" list="airports" placeholder="From (e.g. DEL)" class="px-4 py-3 rounded-lg border"/>
+        <!-- To -->
+        <input id="to" list="airports" placeholder="To (e.g. YYZ)" class="px-4 py-3 rounded-lg border"/>
+        <!-- Dates -->
+        <input type="date" id="depDate" class="px-4 py-3 rounded-lg border"/>
+        <input type="date" id="retDate" class="px-4 py-3 rounded-lg border"/>
+        <!-- Cabin -->
+        <select id="cabin" class="px-4 py-3 rounded-lg border">
+          <option>Economy</option>
+          <option>Business</option>
+          <option>First</option>
+        </select>
+        <!-- Passengers -->
+        <input type="number" min="1" value="1" id="pax" class="px-4 py-3 rounded-lg border"/>
+        <!-- Submit -->
+        <button type="submit" class="md:col-span-2 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg">Show Deals</button>
+      </form>
+
+      <!-- Airport codes -->
+      <datalist id="airports">
+        <!-- India -->
+        <option value="DEL">New Delhi</option>
+        <option value="BOM">Mumbai</option>
+        <option value="BLR">Bengaluru</option>
+        <option value="MAA">Chennai</option>
+        <option value="CCU">Kolkata</option>
+        <!-- Canada -->
+        <option value="YYZ">Toronto</option>
+        <option value="YVR">Vancouver</option>
+        <option value="YUL">Montreal</option>
+        <option value="YYC">Calgary</option>
+        <option value="YEG">Edmonton</option>
+        <!-- USA -->
+        <option value="JFK">New York</option>
+        <option value="EWR">New Jersey</option>
+        <option value="LAX">Los Angeles</option>
+        <option value="ORD">Chicago</option>
+        <option value="DFW">Dallas</option>
+        <option value="SFO">San Francisco</option>
+        <option value="MIA">Miami</option>
+        <option value="BOS">Boston</option>
+      </datalist>
     </div>
-    <img src="assets/airplane.gif" class="bg-gif" width="420" alt="plane">
-    <img src="assets/airplane.gif" class="headplane" alt="plane2">
   </section>
 
-  <main class="container" style="margin-top:-60px">
-    <section id="search" class="search-card">
-      <form id="flightForm">
-        <div class="grid-2">
-          <div><label>From</label><input id="from" list="airports" placeholder="Type e.g. YYZ – Toronto"></div>
-          <div><label>To</label><input id="to" list="airports" placeholder="Type e.g. DEL – New Delhi"></div>
-          <div><label>Departure</label><input id="depart" type="date"></div>
-          <div><label>Return (optional)</label><input id="return" type="date"></div>
-          <div><label>Passengers</label><input id="pax" type="number" value="1" min="1"></div>
-          <div><label>Cabin</label><select id="cabin"><option>Economy</option><option>Business</option></select></div>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
-          <div class="currency-switch" id="currencySwitch">
-            <button type="button" class="switch-btn" data-curr="INR">INR ₹</button>
-            <button type="button" class="switch-btn" data-curr="USD">$ USD</button>
-            <button type="button" class="switch-btn" data-curr="CAD">C$ CAD</button>
-          </div>
-          <div><button class="book-btn" type="submit">Show Deals</button></div>
-        </div>
-      </form>
-      <datalist id="airports"></datalist>
-    </section>
-
-    <section id="popular" style="margin-top:18px">
-      <h3 style="font-size:20px;margin-bottom:12px">Popular Routes & Examples</h3>
-      <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <div style="background:#fff;padding:12px;border-radius:10px;box-shadow:0 8px 20px rgba(2,6,23,0.06)">YYZ → DEL</div>
-        <div style="background:#fff;padding:12px;border-radius:10px;box-shadow:0 8px 20px rgba(2,6,23,0.06)">JFK → BOM</div>
-        <div style="background:#fff;padding:12px;border-radius:10px;box-shadow:0 8px 20px rgba(2,6,23,0.06)">LHR → DEL</div>
-      </div>
-    </section>
-
-    <section id="resultsSection" style="margin-top:18px;display:none">
-      <h3 style="font-size:20px;margin-bottom:12px">Available Deals</h3>
-      <div id="resultsGrid" class="grid-resp"></div>
-    </section>
-
-    <section id="contact" style="margin-top:26px">
-      <div style="background:#fff;padding:16px;border-radius:10px;box-shadow:0 8px 20px rgba(2,6,23,0.06)">
-        <h4 style="margin:0 0 6px 0">Contact & Support</h4>
-        <div style="color:#64748b">Email: <a href="mailto:Sales@flighttoz.com">Sales@flighttoz.com</a> • Phone: +91 70097 67211</div>
-      </div>
-    </section>
-  </main>
-
-  <footer><div style="max-width:1100px;margin:0 auto;padding:28px 16px;color:#94a3b8">© <span id="year"></span> Flight to Z — All rights reserved</div></footer>
-
-  <a class="wh" href="https://wa.me/917009767211?text=Hi%20Flight%20to%20Z" target="_blank" aria-label="WhatsApp" style="position:fixed;right:18px;bottom:18px;z-index:999">
-    <img src="logos/Air_Canada.png" alt="wh" style="width:44px;border-radius:50%;box-shadow:0 8px 18px rgba(0,0,0,0.12)">
-  </a>
-
-<script>
-// Airports (expanded short list)
-const airports = [
-  "YYZ – Toronto", "YVR – Vancouver", "YUL – Montreal", "YYC – Calgary", "JFK – New York", "EWR – Newark", "LAX – Los Angeles", "SFO – San Francisco",
-  "DEL – New Delhi", "BOM – Mumbai", "BLR – Bengaluru", "MAA – Chennai", "CCU – Kolkata", "LHR – London", "LGW – London", "CDG – Paris", "AMS – Amsterdam", "DXB – Dubai", "SIN – Singapore"
-];
-document.getElementById('airports').innerHTML = airports.map(a=>`<option value="${a}"></option>`).join('');
-
-// Hardcoded airlines with base INR price and logo
-const airlines = [
-  {id:'Air_India', name:'Air India', base:45000, stops:'Non-stop', logo:'logos/Air_India.png'},
-  {id:'Air_Canada', name:'Air Canada', base:52000, stops:'Non-stop', logo:'logos/Air_Canada.png'},
-  {id:'United', name:'United Airlines', base:52000, stops:'1 stop', logo:'logos/United.png'},
-  {id:'British_Airways', name:'British Airways', base:48000, stops:'1 stop', logo:'logos/British_Airways.png'},
-  {id:'Emirates', name:'Emirates', base:58000, stops:'1 stop', logo:'logos/Emirates.png'},
-  {id:'Qatar_Airways', name:'Qatar Airways', base:56000, stops:'1 stop', logo:'logos/Qatar_Airways.png'},
-  {id:'Lufthansa', name:'Lufthansa', base:60000, stops:'1 stop', logo:'logos/Lufthansa.png'},
-  {id:'Vistara', name:'Vistara', base:47000, stops:'Non-stop', logo:'logos/Vistara.png'}
-];
-
-// currency setup
-let currency = 'INR';
-const rates = {'INR':1,'USD':0.012,'CAD':0.016};
-
-// currency switcher logic
-document.getElementById('currencySwitch').addEventListener('click', function(e){
-  const btn = e.target.closest('button');
-  if(!btn) return;
-  currency = btn.dataset.curr;
-  // visual
-  Array.from(this.querySelectorAll('button')).forEach(b=>b.style.opacity='0.6');
-  btn.style.opacity = '1';
-  if(document.getElementById('resultsSection').style.display !== 'none') renderResults(lastFrom,lastTo);
-});
-
-// form submit -> render hardcoded results
-let lastFrom='Origin', lastTo='Destination';
-document.getElementById('flightForm').addEventListener('submit', function(e){
-  e.preventDefault();
-  const from = document.getElementById('from').value || 'Origin';
-  const to = document.getElementById('to').value || 'Destination';
-  lastFrom = from; lastTo = to;
-  renderResults(from,to);
-});
-
-function formatPrice(val){
-  if(currency === 'INR') return '₹' + Math.round(val).toLocaleString('en-IN');
-  if(currency === 'USD') return '$' + Math.round(val * rates['USD']).toLocaleString();
-  if(currency === 'CAD') return 'C$' + Math.round(val * rates['CAD']).toLocaleString();
-  return val;
-}
-
-function renderResults(from,to){
-  const grid = document.getElementById('resultsGrid');
-  document.getElementById('resultsSection').style.display = 'block';
-  grid.innerHTML = airlines.map(a=>`
-    <div class="card">
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <div style="display:flex;gap:12px;align-items:center">
-          <img src="${a.logo}" class="logo" alt="${a.name}">
-          <div>
-            <div style="font-weight:700">${a.name}</div>
-            <div style="font-size:13px;color:#64748b">${from} → ${to}</div>
-          </div>
-        </div>
-        <div style="text-align:right">
-          <div style="font-weight:800;font-size:18px">${formatPrice(a.base)}</div>
-          <div style="font-size:12px;color:#94a3b8;margin-top:6px">${a.stops}</div>
-        </div>
-      </div>
-      <div style="margin-top:12px;display:flex;gap:8px">
-        <a class="book-btn" href="#">Book</a>
-        <a class="book-btn" href="https://wa.me/917009767211?text=I%20want%20to%20book%20${encodeURIComponent(a.name)}%20from%20${encodeURIComponent(from)}%20to%20${encodeURIComponent(to)}" target="_blank" style="background:#fff;color:#0891b2;border:1px solid #e6eef2">WhatsApp</a>
-      </div>
+  <!-- Filters -->
+  <div class="max-w-3xl mx-auto mt-6 bg-slate-50 p-4 rounded-lg shadow">
+    <h3 class="font-bold mb-2">Filter Results</h3>
+    <div class="flex flex-wrap gap-4">
+      <!-- Non-stop -->
+      <label class="flex items-center gap-2">
+        <input type="checkbox" id="filterNonStop"> Non-stop only
+      </label>
+      <!-- Airline -->
+      <label>
+        Airline:
+        <select id="filterAirline" class="px-2 py-1 border rounded">
+          <option value="">All</option>
+        </select>
+      </label>
+      <!-- Region -->
+      <label>
+        Region:
+        <select id="filterRegion" class="px-2 py-1 border rounded">
+          <option value="">All</option>
+          <option value="Canada">Canada</option>
+          <option value="USA">USA</option>
+          <option value="India">India</option>
+        </select>
+      </label>
+      <!-- Price -->
+      <label>
+        Max Price (CAD):
+        <input type="number" id="filterPrice" placeholder="e.g. 800" class="px-2 py-1 border rounded w-24">
+      </label>
     </div>
-  `).join('');
-  document.getElementById('resultsSection').scrollIntoView({behavior:'smooth'});
-}
+  </div>
 
-// footer year
-document.getElementById('year').textContent = new Date().getFullYear();
-</script>
+  <!-- Sorting -->
+  <div class="max-w-3xl mx-auto mt-4 flex gap-2">
+    <button onclick="sortFlights('price')" class="bg-gray-200 px-4 py-2 rounded">Sort by Price</button>
+    <button onclick="sortFlights('duration')" class="bg-gray-200 px-4 py-2 rounded">Sort by Duration</button>
+    <button onclick="sortFlights('departure')" class="bg-gray-200 px-4 py-2 rounded">Sort by Departure</button>
+  </div>
+
+  <!-- Results -->
+  <div id="results" class="max-w-3xl mx-auto mt-6"></div>
+
+  <script>
+    let flights = [];
+
+    // Demo airlines
+    const airlines = ["Air India", "IndiGo", "Air Canada", "Delta", "United", "American Airlines"];
+
+    // Generate random flights
+    function generateFlights() {
+      flights = [];
+      for (let i = 0; i < 8; i++) {
+        const fromList = ["DEL","BOM","YYZ","YVR","JFK","SFO"];
+        const toList = ["YYZ","YVR","DEL","BOM","JFK","SFO"];
+        const from = fromList[Math.floor(Math.random()*fromList.length)];
+        const to = toList[Math.floor(Math.random()*toList.length)];
+        const airline = airlines[Math.floor(Math.random()*airlines.length)];
+        const priceCAD = Math.floor(Math.random()*500 + 400);
+        flights.push({
+          airline,
+          flight: "AI-" + Math.floor(Math.random()*900+100),
+          from, to,
+          dep: "2025-09-01T0"+Math.floor(Math.random()*9)+":00",
+          arr: "2025-09-01T1"+Math.floor(Math.random()*9)+":00",
+          duration: Math.floor(Math.random()*400 + 100),
+          priceCAD,
+          priceUSD: Math.floor(priceCAD*0.74),
+          priceINR: Math.floor(priceCAD*62),
+          status: "On Time"
+        });
+      }
+      renderFlights(flights);
+    }
+
+    // Render
+    function renderFlights(list) {
+      let html = "";
+      if (list.length === 0) {
+        html = "<p>No flights match your filters.</p>";
+      } else {
+        // Fill airline filter
+        const airlineSet = [...new Set(flights.map(f => f.airline))];
+        const airlineDropdown = document.getElementById("filterAirline");
+        if (airlineDropdown.options.length === 1) {
+          airlineSet.forEach(a => {
+            airlineDropdown.innerHTML += `<option value="${a}">${a}</option>`;
+          });
+        }
+
+        list.forEach(f => {
+          const details =
+            `Airline: ${f.airline}\nFlight: ${f.flight}\nFrom: ${f.from}\nTo: ${f.to}\nDeparture: ${f.dep}\nPrice: ${f.priceCAD} CAD | ${f.priceUSD} USD | ₹${f.priceINR} INR`;
+          const whatsappLink = `https://wa.me/917009767211?text=${encodeURIComponent("Hi, I want to book this flight:\n" + details)}`;
+          const emailLink = `mailto:sales@flighttoz.com?subject=Flight Booking Request&body=${encodeURIComponent(details)}`;
+          html += `
+            <div class="p-4 border rounded-lg bg-white shadow mb-4">
+              <p><strong>Airline:</strong> ${f.airline}</p>
+              <p><strong>Flight:</strong> ${f.flight}</p>
+              <p><strong>From:</strong> ${f.from}</p>
+              <p><strong>To:</strong> ${f.to}</p>
+              <p><strong>Departure:</strong> ${f.dep}</p>
+              <p><strong>Status:</strong> ${f.status}</p>
+              <hr class="my-2">
+              <p><strong>Price:</strong> ${f.priceCAD} CAD | ${f.priceUSD} USD | ₹${f.priceINR} INR</p>
+              <p><strong>Duration:</strong> ${f.duration} mins</p>
+              <div class="flex gap-2 mt-3">
+                <a href="${whatsappLink}" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">📲 WhatsApp</a>
+                <a href="${emailLink}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">📧 Email</a>
+              </div>
+            </div>`;
+        });
+      }
+      document.getElementById("results").innerHTML = html;
+    }
+
+    // Sorting
+    function sortFlights(type) {
+      let sorted = [...flights];
+      if (type === "price") sorted.sort((a,b) => a.priceCAD - b.priceCAD);
+      if (type === "duration") sorted.sort((a,b) => a.duration - b.duration);
+      if (type === "departure") sorted.sort((a,b) => new Date(a.dep) - new Date(b.dep));
+      renderFlights(sorted);
+    }
+
+    // Filters
+    function applyFilters() {
+      let filtered = [...flights];
+
+      if (document.getElementById("filterNonStop").checked) {
+        filtered = filtered.filter(f => f.duration < 300);
+      }
+      const airline = document.getElementById("filterAirline").value;
+      if (airline) filtered = filtered.filter(f => f.airline === airline);
+
+      const region = document.getElementById("filterRegion").value;
+      if (region) {
+        const canada = ["YYZ","YVR","YUL","YYC","YEG"];
+        const usa = ["JFK","EWR","LAX","ORD","DFW","SFO","MIA","BOS"];
+        const india = ["DEL","BOM","BLR","MAA","CCU"];
+        filtered = filtered.filter(f => {
+          if (region === "Canada") return canada.includes(f.from) || canada.includes(f.to);
+          if (region === "USA") return usa.includes(f.from) || usa.includes(f.to);
+          if (region === "India") return india.includes(f.from) || india.includes(f.to);
+        });
+      }
+
+      const maxPrice = document.getElementById("filterPrice").value;
+      if (maxPrice) filtered = filtered.filter(f => f.priceCAD <= maxPrice);
+
+      renderFlights(filtered);
+    }
+
+    // Event listeners
+    document.getElementById("filterNonStop").addEventListener("change", applyFilters);
+    document.getElementById("filterAirline").addEventListener("change", applyFilters);
+    document.getElementById("filterRegion").addEventListener("change", applyFilters);
+    document.getElementById("filterPrice").addEventListener("input", applyFilters);
+
+    // Form submit
+    document.getElementById("searchForm").addEventListener("submit", e => {
+      e.preventDefault();
+      generateFlights();
+    });
+  </script>
 </body>
 </html>
