@@ -1,38 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flight to Z – Search Flights</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-white text-slate-900">
-
 <!-- Search -->
 <section id="search" class="py-16 bg-white">
   <div class="max-w-3xl mx-auto bg-slate-50 p-8 rounded-2xl shadow">
     <h2 class="text-2xl font-bold mb-6">Search Flights</h2>
-    <form id="flightForm" class="grid md:grid-cols-2 gap-4">
+    <form class="grid md:grid-cols-2 gap-4">
       <!-- From -->
-      <input list="airports" id="from" placeholder="From (e.g. DEL – New Delhi)" class="px-4 py-3 rounded-lg border"/>
+      <input list="airports" placeholder="From (e.g. DEL – New Delhi)" class="px-4 py-3 rounded-lg border"/>
       <!-- To -->
-      <input list="airports" id="to" placeholder="To (e.g. YYZ – Toronto)" class="px-4 py-3 rounded-lg border"/>
+      <input list="airports" placeholder="To (e.g. BOM – Mumbai)" class="px-4 py-3 rounded-lg border"/>
       <!-- Dates -->
-      <input type="date" id="depart" class="px-4 py-3 rounded-lg border"/>
-      <input type="date" id="return" class="px-4 py-3 rounded-lg border"/>
+      <input type="date" class="px-4 py-3 rounded-lg border"/>
+      <input type="date" class="px-4 py-3 rounded-lg border"/>
       <!-- Cabin -->
-      <select id="cabin" class="px-4 py-3 rounded-lg border">
+      <select class="px-4 py-3 rounded-lg border">
         <option>Economy</option>
         <option>Business</option>
         <option>First</option>
       </select>
       <!-- Passengers -->
-      <input type="number" min="1" value="1" id="pax" class="px-4 py-3 rounded-lg border"/>
+      <input type="number" min="1" value="1" class="px-4 py-3 rounded-lg border"/>
       <!-- Submit -->
-      <button type="submit" class="md:col-span-2 bg-brand-600 hover:bg-brand-700 bg-blue-600 text-white py-3 rounded-lg">Show Deals</button>
+      <button type="submit" class="md:col-span-2 bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-lg">Show Deals</button>
     </form>
 
-    <!-- Airport codes -->
+    <!-- Airport codes for autocomplete -->
     <datalist id="airports">
       <!-- India -->
       <option value="DEL – New Delhi (Indira Gandhi Intl)">
@@ -56,155 +46,7 @@
       <option value="MIA – Miami (Miami Intl)">
       <option value="BOS – Boston (Logan Intl)">
     </datalist>
+
     <p class="text-xs text-slate-500 mt-2">*Live API booking coming soon.</p>
   </div>
 </section>
-
-<!-- Filters -->
-<div class="max-w-3xl mx-auto mt-6 bg-slate-50 p-4 rounded-lg shadow">
-  <h3 class="font-bold mb-2">Filter Results</h3>
-  <div class="flex flex-wrap gap-4">
-    <label class="flex items-center gap-2">
-      <input type="checkbox" id="filterNonStop"> Non-stop only
-    </label>
-    <label>
-      Airline:
-      <select id="filterAirline" class="px-2 py-1 border rounded">
-        <option value="">All</option>
-      </select>
-    </label>
-    <label>
-      Region:
-      <select id="filterRegion" class="px-2 py-1 border rounded">
-        <option value="">All</option>
-        <option value="Canada">Canada</option>
-        <option value="USA">USA</option>
-        <option value="India">India</option>
-      </select>
-    </label>
-    <label>
-      Max Price (CAD):
-      <input type="number" id="filterPrice" placeholder="e.g. 800" class="px-2 py-1 border rounded w-24">
-    </label>
-  </div>
-</div>
-
-<!-- Results -->
-<section id="results" class="py-12">
-  <div class="max-w-3xl mx-auto">
-    <h3 class="text-xl font-bold mb-4">Available Flights</h3>
-    <div class="mb-4">
-      Sort by:
-      <select id="sortBy" class="px-2 py-1 border rounded">
-        <option value="price">Cheapest</option>
-        <option value="time">Earliest Departure</option>
-      </select>
-    </div>
-    <div id="flightResults" class="space-y-4"></div>
-  </div>
-</section>
-
-<script>
-const apiKey = "8ef20815e927059544227d49b0c127f1";
-
-// Example airlines list
-const airlines = ["Air India","Air Canada","United Airlines","Delta","American Airlines"];
-
-const airportsByRegion = {
-  Canada: ["YYZ","YVR","YUL","YYC","YEG"],
-  USA: ["JFK","EWR","LAX","ORD","DFW","SFO","MIA","BOS"],
-  India: ["DEL","BOM","BLR","MAA","CCU"]
-};
-
-// Random flight generator
-function generateFlights(from,to) {
-  let flights = [];
-  for (let i=0;i<5;i++) {
-    const airline = airlines[Math.floor(Math.random()*airlines.length)];
-    const nonStop = Math.random() > 0.5;
-    const depHour = Math.floor(Math.random()*24);
-    const priceCAD = Math.floor(400 + Math.random()*800);
-    const priceUSD = (priceCAD*0.74).toFixed(2);
-    const priceINR = (priceCAD*61).toFixed(0);
-    flights.push({
-      from,to,airline,nonStop,depHour,priceCAD,priceUSD,priceINR
-    });
-  }
-  return flights;
-}
-
-// Display flights
-function showFlights(list) {
-  const container = document.getElementById("flightResults");
-  container.innerHTML = "";
-  list.forEach(f=>{
-    const div = document.createElement("div");
-    div.className="p-4 bg-white border rounded shadow";
-    div.innerHTML = `
-      <div class="flex justify-between items-center">
-        <div>
-          <p class="font-bold">${f.from} → ${f.to}</p>
-          <p class="text-sm text-slate-600">${f.airline} • ${f.nonStop?"Non-stop":"1 Stop"} • ${f.depHour}:00</p>
-        </div>
-        <div class="text-right">
-          <p class="font-bold">${f.priceCAD} CAD</p>
-          <p class="text-sm text-slate-600">${f.priceUSD} USD • ${f.priceINR} INR</p>
-          <div class="mt-2 flex gap-2">
-            <a href="https://wa.me/917009767211?text=I%20want%20to%20book%20${f.from}%20to%20${f.to}%20at%20${f.priceCAD}CAD" target="_blank" class="px-3 py-1 bg-green-600 text-white rounded">WhatsApp</a>
-            <a href="mailto:sales@flighttoz.com?subject=Booking%20Request&body=I%20want%20to%20book%20${f.from}%20to%20${f.to}%20at%20${f.priceCAD}CAD" class="px-3 py-1 bg-blue-600 text-white rounded">Email</a>
-          </div>
-        </div>
-      </div>`;
-    container.appendChild(div);
-  });
-}
-
-// Handle search
-document.getElementById("flightForm").addEventListener("submit",e=>{
-  e.preventDefault();
-  const from=document.getElementById("from").value.split("–")[0].trim();
-  const to=document.getElementById("to").value.split("–")[0].trim();
-  let flights=generateFlights(from,to);
-
-  // fill airline filter
-  const select=document.getElementById("filterAirline");
-  select.innerHTML='<option value="">All</option>';
-  [...new Set(flights.map(f=>f.airline))].forEach(a=>{
-    const opt=document.createElement("option"); opt.value=a; opt.textContent=a; select.appendChild(opt);
-  });
-
-  window.allFlights=flights;
-  applyFilters();
-});
-
-// Apply filters + sorting
-function applyFilters(){
-  let filtered=[...window.allFlights];
-  if(document.getElementById("filterNonStop").checked){
-    filtered=filtered.filter(f=>f.nonStop);
-  }
-  const airline=document.getElementById("filterAirline").value;
-  if(airline) filtered=filtered.filter(f=>f.airline===airline);
-  const region=document.getElementById("filterRegion").value;
-  if(region){
-    filtered=filtered.filter(f=>
-      airportsByRegion[region].includes(f.from)||airportsByRegion[region].includes(f.to)
-    );
-  }
-  const maxPrice=parseInt(document.getElementById("filterPrice").value);
-  if(maxPrice) filtered=filtered.filter(f=>f.priceCAD<=maxPrice);
-
-  const sort=document.getElementById("sortBy").value;
-  if(sort==="price") filtered.sort((a,b)=>a.priceCAD-b.priceCAD);
-  if(sort==="time") filtered.sort((a,b)=>a.depHour-b.depHour);
-
-  showFlights(filtered);
-}
-
-document.querySelectorAll("#filterNonStop,#filterAirline,#filterRegion,#filterPrice,#sortBy").forEach(el=>{
-  el.addEventListener("input",applyFilters);
-});
-</script>
-
-</body>
-</html>
