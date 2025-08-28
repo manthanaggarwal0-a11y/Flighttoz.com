@@ -4,374 +4,169 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Flight to Z – Book Cheap Flights</title>
-  <meta name="description" content="Flight to Z – Find and book affordable flights worldwide. Simple, fast, and secure." />
+  <meta name="description" content="Find cheap flights worldwide with Flight to Z. Search, compare and plan your journey easily." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Tailwind CSS CDN for fast styling -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] },
-          colors: {
-            brand: {
-              50: '#ecfeff',
-              100: '#cffafe',
-              200: '#a5f3fc',
-              300: '#67e8f9',
-              400: '#22d3ee',
-              500: '#06b6d4',
-              600: '#0891b2',
-              700: '#0e7490',
-              800: '#155e75',
-              900: '#164e63'
-            }
-          },
-          boxShadow: {
-            soft: '0 10px 30px -12px rgba(2,132,199,0.25)'
-          }
-        }
-      }
-    }
-  </script>
   <style>
     html { scroll-behavior: smooth; }
-    input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-    input[type=number] { -moz-appearance: textfield; }
+    body { font-family: 'Inter', sans-serif; }
+    input::-webkit-inner-spin-button, input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
   </style>
 </head>
-<body class="font-sans text-slate-800">
-  <!-- Top Announcement / CTA -->
-  <div class="w-full bg-brand-600 text-white text-center text-sm py-2 px-4">
-    ✈️ Welcome to <strong>Flight to Z</strong> — your smart way to find budget flights.  
-    <span class="hidden sm:inline">Reach us at <a href="mailto:Sales@flighttoz.com" class="underline">Sales@flighttoz.com</a> • <a href="tel:+917009767211" class="underline">+91 70097 67211</a></span>
+<body class="text-slate-800">
+
+<!-- Top Bar -->
+<div class="bg-brand-600 text-white text-center py-2">
+  ✈️ Welcome to <strong>Flight to Z</strong> — Reach us at 
+  <a href="mailto:Sales@flighttoz.com" class="underline">Sales@flighttoz.com</a> • 
+  <a href="tel:+917009767211" class="underline">+91 70097 67211</a>
+</div>
+
+<!-- Hero -->
+<section class="relative bg-gradient-to-br from-sky-600 to-cyan-500 text-white">
+  <div class="absolute inset-0 bg-black/40"></div>
+  <div class="relative max-w-7xl mx-auto px-6 py-24 text-center">
+    <h1 class="text-4xl md:text-5xl font-extrabold">Find Cheap Flights Worldwide</h1>
+    <p class="mt-4 text-lg text-slate-200">Plan your next journey with ease. Search, compare and save with Flight to Z.</p>
   </div>
+</section>
 
-  <!-- Header -->
-  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <a href="#" class="flex items-center gap-2">
-          <img src="logo.png" alt="Flight to Z Logo" class="h-10 w-10 rounded-md"/>
-          <span class="text-lg font-bold">Flight to Z</span>
-        </a>
-        <nav class="hidden md:flex items-center gap-6 text-sm">
-          <a class="hover:text-brand-700" href="#home">Home</a>
-          <a class="hover:text-brand-700" href="#about">About</a>
-          <a class="hover:text-brand-700" href="#contact">Contact</a>
-          <a class="inline-flex items-center gap-2 rounded-full bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 shadow-soft" href="#search">Book Flights</a>
-        </nav>
-        <!-- Mobile menu button -->
-        <button id="menuBtn" class="md:hidden inline-flex items-center p-2 rounded-lg hover:bg-slate-100" aria-label="Open Menu">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
-      </div>
-      <div id="mobileNav" class="md:hidden hidden pb-4">
-        <a class="block py-2 hover:text-brand-700" href="#home">Home</a>
-        <a class="block py-2 hover:text-brand-700" href="#about">About</a>
-        <a class="block py-2 hover:text-brand-700" href="#contact">Contact</a>
-        <a class="block py-2 text-brand-700 font-semibold" href="#search">Book Flights</a>
-      </div>
+<!-- Search Box -->
+<section id="search" class="relative -mt-20 max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+  <h2 class="text-xl font-bold mb-6">Search Flights</h2>
+  <form id="flightForm" class="grid md:grid-cols-2 gap-4">
+    <div>
+      <label class="block text-sm font-medium">From</label>
+      <input list="airports" id="from" placeholder="Type city or code" required 
+             class="mt-1 w-full rounded-lg border px-4 py-2.5 focus:ring-2 focus:ring-sky-300" />
     </div>
-  </header>
-
-  <!-- Hero -->
-  <section id="home" class="relative overflow-hidden bg-gradient-to-br from-sky-50 via-white to-cyan-50">
-    <div class="absolute inset-0" aria-hidden="true" style="background-image: url('https://images.unsplash.com/photo-1530521954074-e64f6810b32d?q=80&w=1600&auto=format&fit=crop'); background-size: cover; background-position: center; filter: saturate(105%) contrast(105%); opacity: .12;"></div>
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-      <div class="grid lg:grid-cols-2 gap-10 items-center">
-        <div>
-          <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
-            Find <span class="text-brand-600">smart, cheap</span> flights — fast.
-          </h1>
-          <p class="mt-4 text-slate-600 text-lg">Search, compare, and plan your next trip with Flight to Z. We make flight hunting simple and transparent.</p>
-          <div class="mt-6 flex gap-3">
-            <a href="#search" class="inline-flex items-center gap-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white px-5 py-3 shadow-soft">
-              Start Searching
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M3 12a1 1 0 0 1 1-1h12.586l-3.293-3.293a1 1 0 1 1 1.414-1.414l5 5a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414-1.414L16.586 13H4a1 1 0 0 1-1-1Z"/></svg>
-            </a>
-            <a href="#about" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 hover:border-slate-400 px-5 py-3">
-              Learn More
-            </a>
-          </div>
-        </div>
-        <!-- Search Card -->
-        <div id="search" class="bg-white rounded-2xl shadow-xl p-6 lg:p-8 border border-slate-100">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="p-2 rounded-xl bg-brand-100 text-brand-700">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M21.48 15.5c.51 0 .88.46.76.95a3 3 0 0 1-2.9 2.29H11l-2 1.5-2-1.5H4.66a2.66 2.66 0 0 1-2.5-1.78L1.3 14.5c-.15-.45.18-.92.66-.92h14.97l2.06-6.34c.08-.24.3-.4.55-.4h1.58c.38 0 .66.35.58.72l-1.6 7.1h.88Z"/></svg>
-            </div>
-            <h2 class="text-xl font-bold">Search Flights</h2>
-          </div>
-
-          <form id="flightForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label for="from" class="block text-sm font-medium text-slate-700">From</label>
-              <input list="airports" id="from" name="from" required placeholder="e.g., DEL – New Delhi"
-                     class="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2.5 focus:ring-2 focus:ring-brand-300 focus:border-brand-400" />
-            </div>
-            <div>
-              <label for="to" class="block text-sm font-medium text-slate-700">To</label>
-              <input list="airports" id="to" name="to" required placeholder="e.g., BOM – Mumbai"
-                     class="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2.5 focus:ring-2 focus:ring-brand-300 focus:border-brand-400" />
-            </div>
-            <div>
-              <label for="depart" class="block text-sm font-medium text-slate-700">Departure</label>
-              <input type="date" id="depart" name="depart" required
-                     class="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2.5 focus:ring-2 focus:ring-brand-300 focus:border-brand-400" />
-            </div>
-            <div>
-              <label for="return" class="block text-sm font-medium text-slate-700">Return (optional)</label>
-              <input type="date" id="return" name="return"
-                     class="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2.5 focus:ring-2 focus:ring-brand-300 focus:border-brand-400" />
-            </div>
-            <div>
-              <label for="passengers" class="block text-sm font-medium text-slate-700">Passengers</label>
-              <input type="number" id="passengers" name="passengers" min="1" value="1" required
-                     class="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2.5 focus:ring-2 focus:ring-brand-300 focus:border-brand-400" />
-            </div>
-            <div>
-              <label for="cabin" class="block text-sm font-medium text-slate-700">Cabin</label>
-              <select id="cabin" name="cabin" class="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2.5 focus:ring-2 focus:ring-brand-300 focus:border-brand-400">
-                <option>Economy</option>
-                <option>Premium Economy</option>
-                <option>Business</option>
-                <option>First</option>
-              </select>
-            </div>
-            <div class="md:col-span-2 flex items-center gap-3 pt-2">
-              <button type="submit" class="inline-flex items-center justify-center w-full md:w-auto rounded-lg bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 shadow-soft">
-                Show Deals
-              </button>
-              <button type="button" id="swapBtn" class="rounded-lg border border-slate-300 px-4 py-3" title="Swap From/To">↕ Swap</button>
-            </div>
-          </form>
-
-          <datalist id="airports"></datalist>
-
-          <p class="text-xs text-slate-500 mt-3">* Live bookings coming soon. This is a demo search form.</p>
-        </div>
-      </div>
+    <div>
+      <label class="block text-sm font-medium">To</label>
+      <input list="airports" id="to" placeholder="Type city or code" required 
+             class="mt-1 w-full rounded-lg border px-4 py-2.5 focus:ring-2 focus:ring-sky-300" />
     </div>
-  </section>
-
-  <!-- Highlights -->
-  <section class="py-14">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="p-6 rounded-2xl border border-slate-200 bg-white">
-          <div class="w-10 h-10 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center mb-3">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M2.25 2.25a.75.75 0 0 0 0 1.5h1.5v16.5a1.5 1.5 0 0 0 1.5 1.5H18a.75.75 0 0 0 0-1.5H6a.5.5 0 0 1-.5-.5V3.75h14.5a.75.75 0 0 0 0-1.5H2.25Z"/><path d="M7.5 6.75A.75.75 0 0 1 8.25 6h10.5a.75.75 0 0 1 0 1.5H8.25A.75.75 0 0 1 7.5 6.75Zm0 4.5a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H8.25a.75.75 0 0 1-.75-.75Zm0 4.5a.75.75 0 0 1 .75-.75H15a.75.75 0 0 1 0 1.5H8.25a.75.75 0 0 1-.75-.75Z"/></svg>
-          </div>
-          <h3 class="font-semibold text-lg">Transparent Prices</h3>
-          <p class="text-slate-600 mt-1">No hidden fees. What you see is what you pay when we launch bookings.</p>
-        </div>
-        <div class="p-6 rounded-2xl border border-slate-200 bg-white">
-          <div class="w-10 h-10 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center mb-3">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
-          </div>
-          <h3 class="font-semibold text-lg">Trusted Partners</h3>
-          <p class="text-slate-600 mt-1">We plan to use leading flight APIs (Amadeus, Skyscanner, etc.) to fetch real-time fares.</p>
-        </div>
-        <div class="p-6 rounded-2xl border border-slate-200 bg-white">
-          <div class="w-10 h-10 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center mb-3">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M12 2a7 7 0 0 0-7 7v4.586l-1.707 1.707A1 1 0 0 0 4 17h16a1 1 0 0 0 .707-1.707L19 13.586V9a7 7 0 0 0-7-7Zm0 20a4 4 0 0 1-4-4h8a4 4 0 0 1-4 4Z"/></svg>
-          </div>
-          <h3 class="font-semibold text-lg">Smart Alerts</h3>
-          <p class="text-slate-600 mt-1">Price drops & deal alerts (coming soon) so you never miss a bargain.</p>
-        </div>
-      </div>
+    <div>
+      <label class="block text-sm font-medium">Departure</label>
+      <input type="date" id="depart" required class="mt-1 w-full rounded-lg border px-4 py-2.5 focus:ring-2 focus:ring-sky-300"/>
     </div>
-  </section>
-
-  <!-- Results (Demo) -->
-  <section id="resultsSection" class="py-14 hidden bg-slate-50 border-y border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-end justify-between gap-4 mb-6">
-        <div>
-          <h2 class="text-2xl font-bold">Sample Deals</h2>
-          <p id="resultsSub" class="text-slate-600 text-sm mt-1">Based on your search.</p>
-        </div>
-        <button id="resetBtn" class="rounded-lg border border-slate-300 px-4 py-2 bg-white hover:bg-slate-50">New Search</button>
-      </div>
-      <div id="resultsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    <div>
+      <label class="block text-sm font-medium">Return</label>
+      <input type="date" id="return" class="mt-1 w-full rounded-lg border px-4 py-2.5 focus:ring-2 focus:ring-sky-300"/>
     </div>
-  </section>
-
-  <!-- About -->
-  <section id="about" class="py-16">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-extrabold">About Flight to Z</h2>
-      <p class="mt-4 text-slate-700 leading-relaxed">Flight to Z is building a better way to discover and book flights. Our mission is to make airfare search simple, transparent, and fair. Today you're seeing our public beta. Soon, we'll integrate major providers to show live prices and let you book securely in minutes.</p>
+    <div>
+      <label class="block text-sm font-medium">Passengers</label>
+      <input type="number" id="passengers" min="1" value="1" class="mt-1 w-full rounded-lg border px-4 py-2.5"/>
     </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="py-16 bg-slate-50 border-t border-slate-200">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-extrabold">Contact Us</h2>
-      <p class="mt-2 text-slate-600">Have questions or partnership ideas? Drop us a line.</p>
-
-      <!-- Contact details -->
-      <div class="mt-6 mb-6">
-        <p class="text-slate-700"><strong>Email:</strong> <a href="mailto:Sales@flighttoz.com" class="text-brand-600 hover:underline">Sales@flighttoz.com</a></p>
-        <p class="text-slate-700"><strong>Phone:</strong> <a href="tel:+917009767211" class="text-brand-600 hover:underline">+91 70097 67211</a></p>
-      </div>
-
-      <!-- Status alert -->
-      <div id="contactAlert" class="hidden mt-4 p-4 rounded-lg border"></div>
-
-      <!-- Live email form (posts to contact.php) -->
-      <form id="contactForm" action="contact.php" method="POST" class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-6 rounded-2xl border border-slate-200">
-        <input name="name" required class="rounded-lg border border-slate-300 px-4 py-2.5 focus:ring-2 focus:ring-brand-300 focus:border-brand-400" placeholder="Your name"/>
-        <input name="email" required type="email" class="rounded-lg border border-slate-300 px-4 py-2.5 focus:ring-2 focus:ring-brand-300 focus:border-brand-400" placeholder="Email"/>
-        <textarea name="message" required class="md:col-span-2 rounded-lg border border-slate-300 px-4 py-2.5 min-h-[120px] focus:ring-2 focus:ring-brand-300 focus:border-brand-400" placeholder="Message"></textarea>
-        <!-- Honeypot field -->
-        <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" />
-        <button class="md:col-span-2 inline-flex justify-center rounded-lg bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 shadow-soft" type="submit">Send Message</button>
-      </form>
-      <p class="text-xs text-slate-500 mt-3">Submissions will be delivered to <strong>Sales@flighttoz.com</strong> once server setup is completed.</p>
+    <div>
+      <label class="block text-sm font-medium">Cabin</label>
+      <select id="cabin" class="mt-1 w-full rounded-lg border px-4 py-2.5">
+        <option>Economy</option>
+        <option>Premium Economy</option>
+        <option>Business</option>
+        <option>First</option>
+      </select>
     </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="py-10 border-t border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-4 items-center justify-between">
-      <div class="text-slate-600 text-sm">© <span id="year"></span> Flight to Z. All rights reserved. | Email: Sales@flighttoz.com | Phone: +91 70097 67211</div>
-      <div class="flex gap-4 text-sm">
-        <a href="#about" class="hover:text-brand-700">About</a>
-        <span class="text-slate-300">|</span>
-        <a href="#contact" class="hover:text-brand-700">Contact</a>
-        <span class="text-slate-300">|</span>
-        <a href="#" class="hover:text-brand-700">Privacy</a>
-      </div>
+    <div class="md:col-span-2 flex gap-3 pt-2">
+      <button type="submit" class="w-full bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-lg font-semibold">Show Deals</button>
     </div>
-  </footer>
+  </form>
+  <datalist id="airports"></datalist>
+  <p class="text-xs text-slate-500 mt-3">* Demo mode — real-time bookings coming soon.</p>
+</section>
 
-  <script>
-    // --- Simple demo data & helpers ---
-    const airports = [
-      { code: 'DEL', city: 'New Delhi', name: 'Indira Gandhi International' },
-      { code: 'BOM', city: 'Mumbai', name: 'Chhatrapati Shivaji Maharaj' },
-      { code: 'BLR', city: 'Bengaluru', name: 'Kempegowda International' },
-      { code: 'HYD', city: 'Hyderabad', name: 'Rajiv Gandhi International' },
-      { code: 'MAA', city: 'Chennai', name: 'Chennai International' },
-      { code: 'CCU', city: 'Kolkata', name: 'Netaji Subhas Chandra Bose' },
-      { code: 'GOI', city: 'Goa', name: 'Manohar International' },
-      { code: 'COK', city: 'Kochi', name: 'Cochin International' },
-      { code: 'AMD', city: 'Ahmedabad', name: 'Sardar Vallabhbhai Patel' },
-      { code: 'PNQ', city: 'Pune', name: 'Pune Airport' },
-      { code: 'DXB', city: 'Dubai', name: 'Dubai International' },
-      { code: 'DOH', city: 'Doha', name: 'Hamad International' },
-      { code: 'SIN', city: 'Singapore', name: 'Changi' },
-      { code: 'LHR', city: 'London', name: 'Heathrow' }
-    ];
+<!-- Featured Destinations -->
+<section class="max-w-6xl mx-auto py-16 px-6">
+  <h2 class="text-3xl font-bold mb-8 text-center">Popular Routes</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="p-6 bg-white rounded-xl shadow">
+      <h3 class="text-xl font-semibold">Canada → India</h3>
+      <p class="text-slate-600 mt-2">Find affordable tickets from Toronto, Vancouver and more to Delhi, Mumbai, Bangalore.</p>
+    </div>
+    <div class="p-6 bg-white rounded-xl shadow">
+      <h3 class="text-xl font-semibold">USA → India</h3>
+      <p class="text-slate-600 mt-2">Cheap flights from New York, San Francisco, Chicago to Indian metros.</p>
+    </div>
+    <div class="p-6 bg-white rounded-xl shadow">
+      <h3 class="text-xl font-semibold">UK → India</h3>
+      <p class="text-slate-600 mt-2">Book flights from London, Manchester to Delhi, Mumbai and more.</p>
+    </div>
+  </div>
+</section>
 
-    const airportOptions = airports
-      .map(a => `<option value="${a.code} – ${a.city}">${a.name}</option>`) 
-      .join('');
-    document.getElementById('airports').innerHTML = airportOptions;
+<!-- Results -->
+<section id="resultsSection" class="hidden bg-slate-50 py-14 border-t">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-2xl font-bold mb-4">Available Deals</h2>
+    <div id="resultsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </div>
+</section>
 
-    const fromEl = document.getElementById('from');
-    const toEl = document.getElementById('to');
-    const departEl = document.getElementById('depart');
-    const returnEl = document.getElementById('return');
-    const paxEl = document.getElementById('passengers');
-    const cabinEl = document.getElementById('cabin');
+<!-- Footer -->
+<footer class="bg-slate-800 text-slate-300 py-10 text-center">
+  <p>© <span id="year"></span> Flight to Z. All rights reserved.</p>
+  <p>Email: Sales@flighttoz.com • Phone: +91 70097 67211</p>
+</footer>
 
-    // Default min dates to today
-    const today = new Date().toISOString().split('T')[0];
-    departEl.min = today; returnEl.min = today;
+<!-- WhatsApp Button -->
+<a href="https://wa.me/917009767211?text=Hi%20Flight%20to%20Z!%20I%20want%20to%20book%20a%20flight." 
+   class="fixed bottom-5 right-5 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg">
+   <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-7 h-7" viewBox="0 0 24 24"><path d="M12 .25A11.75 11.75 0 0 0 .25 12c0 2.07.55 4.09 1.59 5.87L0 24l6.29-1.8A11.71 11.71 0 0 0 12 23.75c6.49 0 11.75-5.26 11.75-11.75S18.49.25 12 .25Z"/></svg>
+</a>
 
-    // Swap from/to
-    document.getElementById('swapBtn').addEventListener('click', () => {
-      [fromEl.value, toEl.value] = [toEl.value, fromEl.value];
-    });
+<script>
+// Top airports worldwide (sample 50 for demo; can expand)
+const airports = [
+  { code: "DEL", city: "New Delhi", name: "Indira Gandhi Intl" },
+  { code: "BOM", city: "Mumbai", name: "Chhatrapati Shivaji Intl" },
+  { code: "BLR", city: "Bangalore", name: "Kempegowda Intl" },
+  { code: "MAA", city: "Chennai", name: "Chennai Intl" },
+  { code: "CCU", city: "Kolkata", name: "Netaji Subhash Chandra Bose" },
+  { code: "YYZ", city: "Toronto", name: "Pearson Intl" },
+  { code: "YVR", city: "Vancouver", name: "Vancouver Intl" },
+  { code: "YUL", city: "Montreal", name: "Trudeau Intl" },
+  { code: "JFK", city: "New York", name: "John F Kennedy Intl" },
+  { code: "EWR", city: "Newark", name: "Newark Liberty Intl" },
+  { code: "LAX", city: "Los Angeles", name: "Los Angeles Intl" },
+  { code: "SFO", city: "San Francisco", name: "San Francisco Intl" },
+  { code: "ORD", city: "Chicago", name: "O'Hare Intl" },
+  { code: "LHR", city: "London", name: "Heathrow" },
+  { code: "LGW", city: "London", name: "Gatwick" },
+  { code: "DXB", city: "Dubai", name: "Dubai Intl" },
+  { code: "DOH", city: "Doha", name: "Hamad Intl" },
+  { code: "SIN", city: "Singapore", name: "Changi Intl" },
+  { code: "HKG", city: "Hong Kong", name: "Hong Kong Intl" },
+  { code: "SYD", city: "Sydney", name: "Sydney Kingsford Smith" }
+];
 
-    // Mobile menu toggle
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileNav = document.getElementById('mobileNav');
-    menuBtn.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
+const options = airports.map(a => `<option value="${a.code} – ${a.city}">${a.name}</option>`).join('');
+document.getElementById('airports').innerHTML = options;
 
-    // Fake search handler
-    const form = document.getElementById('flightForm');
-    const resultsSection = document.getElementById('resultsSection');
-    const resultsGrid = document.getElementById('resultsGrid');
-    const resultsSub = document.getElementById('resultsSub');
+// Demo results
+document.getElementById('flightForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const resultsGrid = document.getElementById('resultsGrid');
+  const resultsSection = document.getElementById('resultsSection');
+  resultsSection.classList.remove('hidden');
+  resultsGrid.innerHTML = `
+    <div class="p-6 bg-white rounded-lg shadow">
+      <h3 class="font-bold">Air India – ₹45,000</h3>
+      <p class="text-slate-600">Toronto → Delhi | Non-stop</p>
+    </div>
+    <div class="p-6 bg-white rounded-lg shadow">
+      <h3 class="font-bold">United Airlines – ₹52,000</h3>
+      <p class="text-slate-600">New York → Mumbai | 1 stop</p>
+    </div>
+    <div class="p-6 bg-white rounded-lg shadow">
+      <h3 class="font-bold">British Airways – ₹48,000</h3>
+      <p class="text-slate-600">London → Delhi | Non-stop</p>
+    </div>
+  `;
+});
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      // Simple validation
-      if (!fromEl.value || !toEl.value || !departEl.value) return;
-      if (fromEl.value === toEl.value) {
-        alert('Origin and destination cannot be the same.');
-        return;
-      }
-      if (returnEl.value && returnEl.value < departEl.value) {
-        alert('Return date must be after departure date.');
-        return;
-      }
-
-      // Build demo results
-      const from = fromEl.value.split('–')[0].trim();
-      const to = toEl.value.split('–')[0].trim();
-      const pax = paxEl.value;
-      const cabin = cabinEl.value;
-
-      const sample = [
-        { airline: 'IndiGo', price: 5999, time: '08:10 → 10:15', stops: 'Non‑stop' },
-        { airline: 'Air India', price: 6899, time: '12:30 → 14:45', stops: 'Non‑stop' },
-        { airline: 'Vistara', price: 7199, time: '18:00 → 20:10', stops: '1 stop' },
-        { airline: 'SpiceJet', price: 5799, time: '06:15 → 08:30', stops: 'Non‑stop' },
-        { airline: 'Akasa Air', price: 6299, time: '21:00 → 23:05', stops: 'Non‑stop' },
-        { airline: 'Go First', price: 6099, time: '15:20 → 17:35', stops: '1 stop' }
-      ];
-
-      // Shuffle for variety
-      const results = sample.sort(() => Math.random() - 0.5).slice(0, 6);
-
-      resultsGrid.innerHTML = results.map((r) => `
-        <div class="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col gap-3">
-          <div class="flex items-center justify-between">
-            <div class="font-semibold">${r.airline}</n></div>
-            <div class="text-brand-700 font-bold text-lg">₹${r.price.toLocaleString('en-IN')}</div>
-          </div>
-          <div class="text-sm text-slate-600">${from} → ${to}</div>
-          <div class="flex items-center justify-between text-sm text-slate-600">
-            <span>${r.time}</span>
-            <span>${r.stops}</span>
-          </div>
-          <button class="mt-1 inline-flex justify-center rounded-lg bg-brand-600 hover:bg-brand-700 text-white px-4 py-2">Select</button>
-        </div>
-      `).join('');
-
-      resultsSub.textContent = `Showing sample fares for ${from} → ${to} • ${pax} pax • ${cabin}`;
-      resultsSection.classList.remove('hidden');
-      resultsSection.scrollIntoView({ behavior: 'smooth' });
-    });
-
-    document.getElementById('resetBtn').addEventListener('click', () => {
-      resultsSection.classList.add('hidden');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // Footer year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Contact status alert from URL param ?sent=1 or ?sent=0
-    const alertBox = document.getElementById('contactAlert');
-    const params = new URLSearchParams(window.location.search);
-    const sent = params.get('sent');
-    if (sent === '1') {
-      alertBox.textContent = 'Thank you! Your message has been sent.';
-      alertBox.className = 'mt-4 p-4 rounded-lg border bg-emerald-50 border-emerald-200 text-emerald-700';
-    } else if (sent === '0') {
-      alertBox.textContent = 'Sorry, something went wrong. Please try again or email Sales@flighttoz.com directly.';
-      alertBox.className = 'mt-4 p-4 rounded-lg border bg-rose-50 border-rose-200 text-rose-700';
-    }
-  </script>
+// Footer year
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
+
