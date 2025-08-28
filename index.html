@@ -1,166 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Flight to Z – Canada ⇄ India ⇄ USA | Best Flight Deals</title>
-  <meta name="description" content="Flight to Z — Find the best flight deals between Canada, India, and USA. Real agents, fast support, great prices." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight to Z</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root { --brand:#1e40af; --brand2:#0ea5e9; }
-    * { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Arial, sans-serif; }
-    /* Simple reveal animations */
-    .reveal { opacity: 0; transform: translateY(24px); transition: all .7s ease; }
-    .reveal.show { opacity: 1; transform: translateY(0); }
-    /* Buttons micro-interactions */
-    .btn-anim { transition: transform .18s ease, box-shadow .18s ease; }
-    .btn-anim:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(0,0,0,.15); }
-    /* Hero airplane animation */
-    .plane-wrap { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    body { font-family: 'Inter', sans-serif; }
+    /* Airplane animation */
     .plane {
-      position: absolute; top: 18%; left: -180px;
-      width: 160px; opacity:.9; filter: drop-shadow(0 12px 18px rgba(0,0,0,.25));
-      animation: fly 14s linear infinite;
+      position: absolute;
+      top: 20%;
+      left: -100px;
+      width: 80px;
+      height: 80px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/e/e0/Airplane_silhouette.svg') no-repeat center/contain;
+      animation: fly 20s linear infinite;
+      opacity: 0.8;
     }
     @keyframes fly {
-      0% { transform: translateX(0) translateY(0) rotate(0deg); opacity: 0; }
-      8% { opacity: 1; }
-      50% { transform: translateX(60vw) translateY(-15px) rotate(1deg); }
-      100% { transform: translateX(110vw) translateY(0) rotate(0deg); opacity: .2; }
+      0% { left: -100px; top: 15%; }
+      50% { top: 5%; }
+      100% { left: 110%; top: 20%; }
     }
-    /* Card hover */
-    .card { transition: transform .18s ease, box-shadow .18s ease; }
-    .card:hover { transform: translateY(-3px); box-shadow: 0 18px 36px rgba(2,6,23,.12); }
-    /* Smooth anchor scroll */
-    html { scroll-behavior: smooth; }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: all 1s; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
-<body class="bg-white text-slate-900">
+<body class="bg-gray-50 text-gray-800">
 
-  <!-- Header -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur border-b">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <img src="logo.png" alt="Flight to Z logo" class="h-10 w-10 object-contain" />
-        <a href="#home" class="text-lg sm:text-xl font-extrabold text-slate-800">Flight to Z</a>
-      </div>
-      <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#search" class="hover:text-blue-700">Search</a>
-        <a href="#services" class="hover:text-blue-700">Services</a>
-        <a href="#about" class="hover:text-blue-700">About</a>
-        <a href="#reviews" class="hover:text-blue-700">Reviews</a>
-        <a href="#contact" class="hover:text-blue-700">Contact</a>
-      </nav>
-      <div class="text-right text-xs sm:text-sm leading-4">
-        <p class="font-semibold">📞 +91 70097 67211</p>
-        <p class="text-slate-600">sales@flighttoz.com</p>
-      </div>
-    </div>
-  </header>
+  <!-- Hero Section -->
+  <section class="relative h-screen bg-gradient-to-b from-sky-400 to-sky-200 flex flex-col justify-center items-center text-center text-white">
+    <div class="plane"></div>
+    <h1 class="text-5xl font-bold drop-shadow-lg">Flight to Z</h1>
+    <p class="mt-4 text-xl">Best Deals on Flights Canada ✈ India ✈ USA</p>
+    <p class="mt-2">📞 +91 70097 67211 | ✉ sales@flighttoz.com</p>
+  </section>
 
-  <!-- Hero -->
-  <section id="home" class="relative pt-24">
-    <div class="absolute inset-0 bg-gradient-to-b from-sky-100 via-white to-white -z-10"></div>
-    <div class="plane-wrap">
-      <!-- simple plane svg -->
-      <svg class="plane" viewBox="0 0 512 512" aria-hidden="true">
-        <path fill="currentColor" d="M476 192c-6-8-18-12-36-12-56 0-170 38-236 64L96 208 32 224l112 48-112 48 64 16 108-36c66 26 180 64 236 64 18 0 30-4 36-12 8-10 8-26 0-36-4-6-12-10-24-14 12-4 20-8 24-14 8-10 8-26 0-36-4-6-12-10-24-14 12-4 20-8 24-14 8-10 8-26 0-36z" />
-      </svg>
-    </div>
+  <!-- Search Section -->
+  <section id="search" class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto bg-slate-50 p-8 rounded-2xl shadow">
+      <h2 class="text-2xl font-bold mb-6">Search Flights</h2>
+      <form id="flightSearch" class="grid md:grid-cols-2 gap-4">
+        <!-- From -->
+        <input list="airports" name="from" placeholder="From (e.g. DEL – New Delhi)" class="px-4 py-3 rounded-lg border"/>
+        <!-- To -->
+        <input list="airports" name="to" placeholder="To (e.g. YYZ – Toronto)" class="px-4 py-3 rounded-lg border"/>
+        <!-- Dates -->
+        <input type="date" name="depart" class="px-4 py-3 rounded-lg border"/>
+        <input type="date" name="return" class="px-4 py-3 rounded-lg border"/>
+        <!-- Cabin -->
+        <select name="cabin" class="px-4 py-3 rounded-lg border">
+          <option>Economy</option>
+          <option>Business</option>
+          <option>First</option>
+        </select>
+        <!-- Passengers -->
+        <input type="number" name="passengers" min="1" value="1" class="px-4 py-3 rounded-lg border"/>
+        <!-- Currency -->
+        <select name="currency" id="currency" class="px-4 py-3 rounded-lg border">
+          <option value="CAD" selected>CAD</option>
+          <option value="USD">USD</option>
+          <option value="INR">INR</option>
+        </select>
+        <!-- Submit -->
+        <button type="submit" class="md:col-span-2 bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-lg">Show Deals</button>
+      </form>
 
-    <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-10 items-center">
-      <div class="reveal">
-        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
-          Best Deals: <span class="text-blue-700">Canada ⇄ India ⇄ USA</span>
-        </h1>
-        <p class="mt-4 text-slate-600 max-w-xl">
-          Real agents. Honest prices. 24/7 support. Search flights and contact us to lock in deals today.
-        </p>
-        <div class="mt-6 flex gap-3">
-          <a href="#search" class="btn-anim bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg text-sm font-semibold">Find Flights</a>
-          <a href="#contact" class="btn-anim bg-white border px-5 py-3 rounded-lg text-sm font-semibold">Talk to an agent</a>
-        </div>
-      </div>
-
-      <!-- Search Card -->
-      <div id="search" class="reveal">
-        <div class="bg-white/95 border rounded-2xl shadow-xl p-6">
-          <h2 class="text-xl font-bold mb-4">Search Flights</h2>
-          <form id="flightForm" class="grid sm:grid-cols-2 gap-4">
-            <input list="airports" id="from" placeholder="From (e.g. DEL – New Delhi)" class="px-4 py-3 rounded-lg border">
-            <input list="airports" id="to" placeholder="To (e.g. YYZ – Toronto)" class="px-4 py-3 rounded-lg border">
-            <input type="date" id="depart" class="px-4 py-3 rounded-lg border">
-            <input type="date" id="return" class="px-4 py-3 rounded-lg border">
-            <select id="cabin" class="px-4 py-3 rounded-lg border">
-              <option>Economy</option><option>Business</option><option>First</option>
-            </select>
-            <input type="number" min="1" value="1" id="pax" class="px-4 py-3 rounded-lg border" placeholder="Passengers">
-            <button type="submit" class="sm:col-span-2 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg btn-anim">Show Deals</button>
-          </form>
-
-          <!-- Airports datalist -->
-          <datalist id="airports">
-            <!-- India -->
-            <option value="DEL – New Delhi (Indira Gandhi Intl)">
-            <option value="BOM – Mumbai (Chhatrapati Shivaji)">
-            <option value="BLR – Bengaluru (Kempegowda Intl)">
-            <option value="MAA – Chennai (Chennai Intl)">
-            <option value="CCU – Kolkata (Netaji Subhas Chandra Bose)">
-            <!-- Canada -->
-            <option value="YYZ – Toronto (Pearson Intl)">
-            <option value="YVR – Vancouver (Vancouver Intl)">
-            <option value="YUL – Montreal (Trudeau Intl)">
-            <option value="YYC – Calgary (Calgary Intl)">
-            <option value="YEG – Edmonton (Edmonton Intl)">
-            <!-- USA -->
-            <option value="JFK – New York (John F. Kennedy Intl)">
-            <option value="EWR – New Jersey (Newark Intl)">
-            <option value="LAX – Los Angeles (LAX Intl)">
-            <option value="ORD – Chicago (O’Hare Intl)">
-            <option value="DFW – Dallas (Fort Worth Intl)">
-            <option value="SFO – San Francisco (SFO Intl)">
-            <option value="MIA – Miami (Miami Intl)">
-            <option value="BOS – Boston (Logan Intl)">
-          </datalist>
-          <p class="text-xs text-slate-500 mt-2">*Prices shown are demo estimates for presentation. Contact us for today’s best fare.</p>
-        </div>
-      </div>
+      <!-- Airport codes -->
+      <datalist id="airports">
+        <!-- India -->
+        <option value="DEL – New Delhi">
+        <option value="BOM – Mumbai">
+        <option value="BLR – Bengaluru">
+        <option value="MAA – Chennai">
+        <option value="CCU – Kolkata">
+        <!-- Canada -->
+        <option value="YYZ – Toronto">
+        <option value="YVR – Vancouver">
+        <option value="YUL – Montreal">
+        <option value="YYC – Calgary">
+        <option value="YEG – Edmonton">
+        <!-- USA -->
+        <option value="JFK – New York">
+        <option value="EWR – Newark">
+        <option value="LAX – Los Angeles">
+        <option value="ORD – Chicago">
+        <option value="DFW – Dallas">
+        <option value="SFO – San Francisco">
+        <option value="MIA – Miami">
+        <option value="BOS – Boston">
+      </datalist>
     </div>
   </section>
 
-  <!-- Results -->
-  <section id="results" class="reveal max-w-7xl mx-auto px-4 py-16 hidden">
-    <div class="flex items-end justify-between mb-6">
-      <h3 class="text-2xl font-bold">Available Flights</h3>
-      <div>
-        <label for="sortBy" class="mr-2 text-sm text-slate-600">Sort by:</label>
-        <select id="sortBy" class="px-3 py-2 border rounded-lg text-sm">
-          <option value="price">Cheapest</option>
-          <option value="time">Earliest Departure</option>
-          <option value="duration">Fastest</option>
-        </select>
-      </div>
+  <!-- Flight Results -->
+  <section id="results" class="py-16 bg-gray-100 hidden">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-2xl font-bold mb-6">Available Flights</h2>
+      <div id="flightResults" class="grid md:grid-cols-2 gap-6"></div>
     </div>
-    <div id="flightsList" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </section>
+
+  <!-- About -->
+  <section class="py-16 bg-white fade-in">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl font-bold">About Us</h2>
+      <p class="mt-4 text-lg">Flight to Z specializes in affordable flights between Canada, India, and USA. With 24/7 support and unbeatable prices, we make travel simple and stress-free.</p>
+    </div>
   </section>
 
   <!-- Services -->
-  <section id="services" class="reveal max-w-7xl mx-auto px-4 py-16">
-    <h3 class="text-2xl font-bold mb-8">Our Services</h3>
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="card p-6 border rounded-2xl">
-        <div class="text-3xl mb-3">🛫</div>
-        <h4 class="font-bold mb-2">Flight Ticketing</h4>
-        <p class="text-slate-600 text-sm">International & domestic tickets at competitive prices with transparent fees.</p>
+  <section class="py-16 bg-sky-50 fade-in">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="text-3xl font-bold">Our Services</h2>
+      <div class="grid md:grid-cols-3 gap-6 mt-8">
+        <div class="p-6 bg-white rounded-xl shadow">✈️ Cheap Flights</div>
+        <div class="p-6 bg-white rounded-xl shadow">📞 24/7 Support</div>
+        <div class="p-6 bg-white rounded-xl shadow">🌍 Multi-country Booking</div>
       </div>
-      <div class="card p-6 border rounded-2xl">
-        <div class="text-3xl mb-3">💼</div>
-        <h4 class="font-bold mb-2">Business Travel</h4>
-        <p class="text-slate-600 text-sm">Flexible fares, invoice support, and priority options for corporate travelers.</p>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="py-16 bg-white fade-in">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="text-3xl font-bold">Customer Reviews</h2>
+      <div class="grid md:grid-cols-3 gap-6 mt-8">
+        <div class="p-6 bg-sky-50 rounded-xl shadow">⭐⭐⭐⭐⭐<br>"Great service and prices!"</div>
+        <div class="p-6 bg-sky-50 rounded-xl shadow">⭐⭐⭐⭐⭐<br>"Fast booking, highly recommend."</div>
+        <div class="p-6 bg-sky-50 rounded-xl shadow">⭐⭐⭐⭐⭐<br>"Best deals for Canada to India."</div>
       </div>
-      <div class="card p-6 border rounded-2xl">
-        <div class="text-3xl mb-3">🎯</div>
-        <h4 class="font-bold mb-2">Best-Deal Hunt</h4>
-        <p class
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="py-16 bg-sky-100 fade-in">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl font-bold">Contact Us</h2>
+      <p class="mt-4">📞 +91 70097 67211</p>
+      <p>✉ sales@flighttoz.com</p>
+      <a href="https://wa.me/917009767211" target="_blank" class="mt-4 inline-block bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg">Chat on WhatsApp</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-6 bg-gray-800 text-white text-center">
+    <p>© 2025 Flight to Z. All rights reserved.</p>
+  </footer>
+
+  <!-- Script -->
+  <script>
+    const form = document.getElementById('flightSearch');
+    const resultsSection = document.getElementById('results');
+    const resultsDiv = document.getElementById('flightResults');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const currency = document.getElementById('currency').value;
+      resultsSection.classList.remove('hidden');
+      resultsDiv.innerHTML = '';
+
+      const sampleFlights = [
+        {from: 'DEL', to: 'YYZ'},
+        {from: 'BOM', to: 'YVR'},
+        {from: 'YYZ', to: 'DEL'},
+        {from: 'JFK', to: 'BOM'},
+        {from: 'YVR', to: 'SFO'}
+      ];
+
+      sampleFlights.forEach(flight => {
+        const price = Math.floor(Math.random() * 500 + 500); // random 500–1000
+        const message = `Hello, I want to book a flight ${flight.from} → ${flight.to} at ${currency} ${price}`;
+        const whatsappURL = `https://wa.me/917009767211?text=${encodeURIComponent(message)}`;
+
+        const card = `
+          <div class="p-6 bg-white rounded-xl shadow">
+            <h3 class="text-xl font-bold">${flight.from} → ${flight.to}</h3>
+            <p class="mt-2 text-lg font-semibold">${currency} ${price}</p>
+            <a href="${whatsappURL}" target="_blank" class="mt-4 inline-block bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 rounded">Book Now</a>
+          </div>
+        `;
+        resultsDiv.innerHTML += card;
+      });
+    });
+
+    // Fade-in animation on scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
