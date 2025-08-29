@@ -139,30 +139,39 @@
 </body>
 </html>
 <script>
-  const API_KEY = '8ef20815e927059544227d49b0c127f1';
+  // Your AirLabs API key
+  const API_KEY = "8ef20815e927059544227d49b0c127f1";
 
-  // Simulated API call (replace with real endpoint)
   async function searchFlights() {
-    const from = document.querySelector('input[placeholder*="From"]').value;
-    const to = document.querySelector('input[placeholder*="To"]').value;
+    const from = document.querySelector('input[placeholder*="From"]').value.split("–")[0].trim();
+    const to = document.querySelector('input[placeholder*="To"]').value.split("–")[0].trim();
 
     try {
-      // Example endpoint (replace with real API URL)
-      const res = await fetch(`https://api.example.com/flights?from=${from}&to=${to}&key=${API_KEY}`);
+      // Call your Netlify proxy instead of AirLabs directly
+      const res = await fetch(`/.netlify/functions/airlabs?from=${from}&to=${to}`);
       const data = await res.json();
 
-      console.log('Flight Results:', data);
-      alert('Flights fetched! Check console.');
+      console.log("Flight Results:", data);
+
+      if (data.response && data.response.length > 0) {
+        alert(`Found ${data.response.length} flights from ${from} → ${to}`);
+      } else {
+        alert("No flights found for this route.");
+      }
     } catch (err) {
-      console.error('API Error:', err);
-      alert('Failed to fetch flight data.');
+      console.error("API Error:", err);
+      alert("Failed to fetch flight data.");
     }
   }
 
   // Attach handler to form submit
-  document.querySelector('form').addEventListener('submit', (e) => {
+  document.querySelector("form").addEventListener("submit", (e) => {
     e.preventDefault();
     searchFlights();
   });
 </script>
+
+  });
+</script>
+
 
