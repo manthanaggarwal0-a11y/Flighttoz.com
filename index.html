@@ -2,26 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Flight to Z – Smart Flight Booking</title>
   <meta name="description" content="Flight to Z – Find and book affordable flights worldwide. Smart, simple, and secure." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    html { scroll-behavior: smooth; }
-    .animate-plane { animation: fly 6s linear infinite; }
-    @keyframes fly { 
-      0% { transform: translateX(-50px) translateY(0); } 
-      50% { transform: translateX(50vw) translateY(-30px);} 
-      100% { transform: translateX(100vw) translateY(0);} 
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] },
+          colors: { brand: { 500:'#06b6d4', 600:'#0891b2', 700:'#0e7490' } }
+        }
+      }
     }
+  </script>
+  <style>
+    html { scroll-behavior:smooth }
+    .animate-plane { animation: fly 6s linear infinite }
+    @keyframes fly {
+      0% { transform: translateX(-50px) translateY(0) }
+      50% { transform: translateX(50vw) translateY(-30px) }
+      100% { transform: translateX(100vw) translateY(0) }
+    }
+    .stars{letter-spacing:1px}
   </style>
 </head>
 <body class="font-sans text-slate-800">
 
   <!-- Top Bar -->
-  <div class="bg-sky-600 text-white text-sm text-center py-2">
+  <div class="bg-brand-600 text-white text-sm text-center py-2">
     📞 +91 70097 67211 • ✉️ <a href="mailto:Sales@flighttoz.com" class="underline">Sales@flighttoz.com</a>
   </div>
 
@@ -30,85 +41,192 @@
     <div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
       <a href="#" class="flex items-center gap-2">
         <img src="logo.png" alt="Flight to Z Logo" class="h-10 w-10 rounded"/>
-        <span class="text-xl font-bold text-sky-600">Flight to Z</span>
+        <span class="text-xl font-bold text-brand-600">Flight to Z</span>
       </a>
       <nav class="hidden md:flex gap-6 text-sm">
-        <a href="#home" class="hover:text-sky-600">Home</a>
-        <a href="#about" class="hover:text-sky-600">About</a>
-        <a href="#contact" class="hover:text-sky-600">Contact</a>
-        <a href="#search" class="bg-sky-600 text-white px-4 py-2 rounded-lg hover:bg-sky-700">Book Flights</a>
+        <a href="#home" class="hover:text-brand-600">Home</a>
+        <a href="#search" class="hover:text-brand-600">Search Flights</a>
+        <a href="#reviews" class="hover:text-brand-600">Reviews</a>
+        <a href="#why" class="hover:text-brand-600">Why Choose Us</a>
+        <a href="#contact" class="hover:text-brand-600">Contact</a>
       </nav>
     </div>
   </header>
 
   <!-- Promo Banner -->
-  <div class="bg-yellow-400 text-center text-lg font-bold py-2">
-    🎉 Special Offer: Get up to 30% OFF on Flights with <span class="text-sky-700">Flight to Z</span>!
+  <div class="bg-yellow-400 text-center text-base md:text-lg font-bold py-2">
+    🎉 Up to <span class="underline">30% OFF</span> on select routes • Extra <span class="underline">15% OFF</span> first booking — Use coupon <span class="bg-white px-2 py-0.5 rounded text-sky-700">FirstFlight15</span>
   </div>
 
   <!-- Hero -->
   <section id="home" class="relative bg-gradient-to-r from-sky-100 to-cyan-50 overflow-hidden">
     <div class="absolute top-10 left-0 animate-plane">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-sky-600" fill="currentColor" viewBox="0 0 24 24"><path d="M2.5 19.5l19-7.5-19-7.5v5l13 2.5-13 2.5v5z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-brand-600" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M2.5 19.5l19-7.5-19-7.5v5l13 2.5-13 2.5v5z"/>
+      </svg>
     </div>
-    <div class="max-w-7xl mx-auto px-4 py-20 text-center">
-      <h1 class="text-4xl md:text-6xl font-extrabold">Book With <span class="text-sky-600">Flight to Z</span></h1>
-      <p class="mt-4 text-lg text-slate-600">Our Best Team Support – Smart, Easy & Cheap Flights Worldwide.</p>
+    <div class="max-w-7xl mx-auto px-4 py-16 md:py-20 text-center">
+      <h1 class="text-4xl md:text-6xl font-extrabold">Book with <span class="text-brand-600">Flight to Z</span></h1>
+      <p class="mt-4 text-lg text-slate-700">Our best team support — smart, easy & affordable flights worldwide.</p>
       <div class="mt-6 flex justify-center gap-4">
-        <a href="#search" class="bg-sky-600 hover:bg-sky-700 text-white px-6 py-3 rounded-lg shadow">Search Flights</a>
-        <a href="#about" class="border border-slate-300 px-6 py-3 rounded-lg hover:border-sky-600">Learn More</a>
+        <a href="#search" class="bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 rounded-lg shadow">Search Flights</a>
+        <a href="#why" class="border border-slate-300 px-6 py-3 rounded-lg hover:border-brand-600">Learn More</a>
       </div>
     </div>
   </section>
 
   <!-- Search -->
-  <section id="search" class="py-16 bg-white">
-    <div class="max-w-3xl mx-auto bg-slate-50 p-8 rounded-2xl shadow">
-      <h2 class="text-2xl font-bold mb-6">Search Flights</h2>
+  <section id="search" class="py-12 bg-white">
+    <div class="max-w-4xl mx-auto bg-slate-50 p-6 md:p-8 rounded-2xl shadow">
+      <div class="flex items-center justify-between mb-4 gap-3">
+        <h2 class="text-2xl font-bold">Search Flights</h2>
+        <div class="flex items-center gap-2">
+          <label for="currency" class="text-sm text-slate-600">Currency</label>
+          <select id="currency" class="px-2 py-2 rounded border text-sm">
+            <option value="USD" selected>USD</option>
+            <option value="CAD">CAD</option>
+            <option value="INR">INR</option>
+          </select>
+        </div>
+      </div>
+
       <form id="flightForm" class="grid md:grid-cols-2 gap-4">
-        <input placeholder="From (e.g. DEL – New Delhi)" class="px-4 py-3 rounded-lg border" required>
-        <input placeholder="To (e.g. BOM – Mumbai)" class="px-4 py-3 rounded-lg border" required>
-        <input type="date" class="px-4 py-3 rounded-lg border"/>
-        <input type="date" class="px-4 py-3 rounded-lg border"/>
-        <select class="px-4 py-3 rounded-lg border"><option>Economy</option><option>Business</option></select>
-        <input type="number" min="1" value="1" class="px-4 py-3 rounded-lg border"/>
-        <button type="submit" class="md:col-span-2 bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-lg">Show Deals</button>
+        <!-- From / To with datalist; type first 2 letters -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">From</label>
+          <input id="from" list="airports" placeholder="Type city or code (e.g., DE → DEL)" class="px-4 py-3 rounded-lg border w-full" required>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">To</label>
+          <input id="to" list="airports" placeholder="Type city or code (e.g., MU → BOM)" class="px-4 py-3 rounded-lg border w-full" required>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Depart</label>
+          <input id="depart" type="date" class="px-4 py-3 rounded-lg border w-full">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Return</label>
+          <input id="return" type="date" class="px-4 py-3 rounded-lg border w-full">
+        </div>
+
+        <!-- Compact Cabin + Passengers in same column -->
+        <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-4 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Cabin</label>
+            <select id="cabin" class="px-3 py-2.5 rounded-lg border w-full text-sm">
+              <option>Economy</option>
+              <option>Premium Economy</option>
+              <option>Business</option>
+              <option>First</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Adults</label>
+            <select id="adult" class="px-3 py-2.5 rounded-lg border w-full text-sm">
+              <option>1</option><option>2</option><option>3</option><option>4</option>
+              <option>5</option><option>6</option><option>7</option><option>8</option><option>9</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Children (2–11)</label>
+            <select id="child" class="px-3 py-2.5 rounded-lg border w-full text-sm">
+              <option>0</option><option>1</option><option>2</option><option>3</option>
+              <option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Infants (&lt;2)</label>
+            <select id="infant" class="px-3 py-2.5 rounded-lg border w-full text-sm">
+              <option>0</option><option>1</option><option>2</option><option>3</option>
+              <option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="md:col-span-2 flex items-center gap-3">
+          <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-lg font-semibold">Show Deals</button>
+        </div>
       </form>
-      <div id="results" class="mt-6"></div>
+
+      <datalist id="airports"></datalist>
+
+      <!-- Results -->
+      <div id="resultsWrap" class="mt-8 hidden">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-xl font-bold">Available Deals</h3>
+          <div class="text-sm text-slate-600">Stops:
+            <span class="inline-block px-2 py-0.5 bg-white rounded border ml-1">Non-stop</span>
+            <span class="inline-block px-2 py-0.5 bg-white rounded border ml-1">1 Stop</span>
+            <span class="inline-block px-2 py-0.5 bg-white rounded border ml-1">2 Stops</span>
+            <span class="inline-block px-2 py-0.5 bg-white rounded border ml-1">Multi</span>
+          </div>
+        </div>
+        <div id="resultsGrid" class="grid md:grid-cols-2 gap-4"></div>
+      </div>
     </div>
   </section>
 
   <!-- Reviews -->
-  <section class="py-16 bg-slate-50">
-    <div class="max-w-6xl mx-auto px-4 text-center">
-      <h2 class="text-3xl font-extrabold mb-10">What Our Customers Say</h2>
+  <section id="reviews" class="py-14 bg-slate-50">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl font-extrabold text-center mb-10">What Our Customers Say</h2>
       <div class="grid md:grid-cols-3 gap-6">
         <div class="p-6 bg-white rounded-xl shadow">
-          <p class="italic">“Flight to Z helped me save 20% on my ticket to Toronto. Amazing support!”</p>
-          <p class="mt-3 font-bold">– Rahul Mehta</p>
+          <div class="stars text-amber-500 text-lg">★★★★★</div>
+          <p class="mt-3 italic">“Flight to Z turned a stressful multi-city plan into a breeze. They suggested smarter stopovers, flexible dates, and I still got seats together for my family. Transparent pricing and speedy responses.”</p>
+          <p class="mt-3 font-bold">– Sarah Johnson (NYC → Mumbai)</p>
         </div>
         <div class="p-6 bg-white rounded-xl shadow">
-          <p class="italic">“Best booking experience ever. Fast and transparent.”</p>
-          <p class="mt-3 font-bold">– Sarah Johnson</p>
+          <div class="stars text-amber-500 text-lg">★★★★★</div>
+          <p class="mt-3 italic">“I shaved almost 30% off my Toronto–Delhi itinerary. The team proactively found better timings and even flagged a long layover I missed. Booked in minutes. Highly recommended.”</p>
+          <p class="mt-3 font-bold">– Rahul Mehta (Toronto → Delhi)</p>
         </div>
         <div class="p-6 bg-white rounded-xl shadow">
-          <p class="italic">“Highly recommend Flight to Z – got the best deals to India.”</p>
-          <p class="mt-3 font-bold">– David Brown</p>
+          <div class="stars text-amber-500 text-lg">★★★★★</div>
+          <p class="mt-3 italic">“From WhatsApp to confirmed e-tickets in under an hour. Super clear options: non-stop, 1 stop, 2 stops — all with real airline choices. Will book again with Flight to Z.”</p>
+          <p class="mt-3 font-bold">– David Brown (SF → Bangalore)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose -->
+  <section id="why" class="py-14 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl font-extrabold text-center mb-10">Why Choose Flight to Z?</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="p-6 bg-slate-50 rounded-xl border">
+          <h3 class="font-bold mb-2">Transparent Savings</h3>
+          <p>We compare top airlines and smart stopovers to surface the best value. No junk fees, no surprises — just clean, comparable options you can trust.</p>
+        </div>
+        <div class="p-6 bg-slate-50 rounded-xl border">
+          <h3 class="font-bold mb-2">Human + Tech Support</h3>
+          <p>Fast automation for instant quotes, backed by real experts who optimize dates, cabins, and connections when you need a better plan.</p>
+        </div>
+        <div class="p-6 bg-slate-50 rounded-xl border">
+          <h3 class="font-bold mb-2">Book Your Way</h3>
+          <p>Prefer to hold a fare, or book now? We support both — with quick confirmation and proactive updates on changes & price drops.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="py-16 bg-white">
+  <section id="contact" class="py-14 bg-slate-100">
     <div class="max-w-4xl mx-auto px-4 text-center">
       <h2 class="text-3xl font-extrabold mb-4">Write Us / Send a Message</h2>
-      <p class="text-slate-600 mb-6">Our support team will reply quickly via email.</p>
-      <form action="mailto:Sales@flighttoz.com" method="POST" enctype="text/plain" class="grid gap-4 bg-slate-50 p-6 rounded-xl shadow">
+      <p class="text-slate-600 mb-6">Email us or ping on WhatsApp — our team replies fast.</p>
+      <div class="flex flex-col md:flex-row items-center justify-center gap-3 mb-6">
+        <a href="mailto:Sales@flighttoz.com" class="px-4 py-2 rounded bg-white border hover:bg-slate-50">✉️ Sales@flighttoz.com</a>
+        <a href="https://wa.me/917009767211" target="_blank" class="px-4 py-2 rounded bg-green-500 text-white hover:bg-green-600">💬 WhatsApp</a>
+        <span class="text-slate-700">📞 +91 70097 67211</span>
+      </div>
+      <form action="mailto:Sales@flighttoz.com" method="POST" enctype="text/plain" class="grid gap-4 bg-white p-6 rounded-xl shadow">
         <input type="text" placeholder="Your Name" class="px-4 py-3 rounded-lg border" required>
         <input type="email" placeholder="Your Email" class="px-4 py-3 rounded-lg border" required>
         <textarea placeholder="Message" class="px-4 py-3 rounded-lg border h-32" required></textarea>
-        <button type="submit" class="bg-sky-600 text-white py-3 rounded-lg hover:bg-sky-700">Send Message</button>
+        <button type="submit" class="bg-brand-600 text-white py-3 rounded-lg hover:bg-brand-700">Send Message</button>
       </form>
     </div>
   </section>
@@ -118,25 +236,152 @@
     © <span id="year"></span> Flight to Z. All rights reserved. | 📞 +91 70097 67211 | ✉️ Sales@flighttoz.com
   </footer>
 
+  <!-- Scripts -->
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Fake results for demo
-    const sampleFlights = [
-      { airline: "Air Canada", from: "Toronto (YYZ)", to: "Delhi (DEL)", price: "USD 820", stops: "Non-stop" },
-      { airline: "United Airlines", from: "New York (JFK)", to: "Mumbai (BOM)", price: "USD 950", stops: "1 stop" },
-      { airline: "Air India", from: "Delhi (DEL)", to: "San Francisco (SFO)", price: "USD 1120", stops: "Non-stop" }
+    // --- Airport list (IN / US / CA major). Type first 2 letters to match. Extend as needed. ---
+    const AIRPORTS = [
+      // India
+      ["DEL","New Delhi","Indira Gandhi Intl"],["BOM","Mumbai","Chhatrapati Shivaji"],["BLR","Bengaluru","Kempegowda"],
+      ["MAA","Chennai","Chennai Intl"],["HYD","Hyderabad","Rajiv Gandhi"],["CCU","Kolkata","Netaji Subhas Chandra Bose"],
+      ["AMD","Ahmedabad","Sardar Vallabhbhai Patel"],["COK","Kochi","Cochin Intl"],["PNQ","Pune","Pune"],
+      ["GOI","Goa","Manohar Intl"],["TRV","Thiruvananthapuram","Trivandrum"],["ATQ","Amritsar","Sri Guru Ram Dass"],
+      // USA
+      ["JFK","New York","John F. Kennedy"],["EWR","Newark","Newark Liberty"],["LGA","New York","LaGuardia"],
+      ["LAX","Los Angeles","Los Angeles Intl"],["SFO","San Francisco","San Francisco Intl"],["ORD","Chicago","O'Hare"],
+      ["IAD","Washington","Dulles"],["SEA","Seattle","Sea-Tac"],["DFW","Dallas","Dallas/Fort Worth"],["MIA","Miami","Miami Intl"],
+      ["BOS","Boston","Logan"],["ATL","Atlanta","Hartsfield–Jackson"],["IAH","Houston","George Bush"],
+      // Canada
+      ["YYZ","Toronto","Pearson"],["YVR","Vancouver","Vancouver Intl"],["YUL","Montréal","Trudeau"],
+      ["YYC","Calgary","Calgary Intl"],["YOW","Ottawa","Macdonald–Cartier"],["YEG","Edmonton","Edmonton Intl"]
     ];
-    document.getElementById('flightForm').addEventListener('submit', e => {
+
+    // Fill datalist
+    const dl = document.getElementById('airports');
+    dl.innerHTML = AIRPORTS.map(([code,city,name]) => `<option value="${code} — ${city}">${name}</option>`).join('');
+
+    // --- Airlines + logo filenames (place files in /assets/logos/) ---
+    const AIRLINES = [
+      { code:"QR", name:"Qatar Airways", logo:"qatar.png" },
+      { code:"EK", name:"Emirates", logo:"emirates.png" },
+      { code:"EY", name:"Etihad", logo:"etihad.png" },
+      { code:"AI", name:"Air India", logo:"air-india.png" },
+      { code:"AC", name:"Air Canada", logo:"air-canada.png" },
+      { code:"UA", name:"United Airlines", logo:"united.png" },
+      { code:"LH", name:"Lufthansa", logo:"lufthansa.png" },
+      { code:"LX", name:"SWISS", logo:"swiss.png" },
+      { code:"AF", name:"Air France", logo:"air-france.png" },
+      { code:"KL", name:"KLM", logo:"klm.png" },
+      { code:"DL", name:"Delta Air Lines", logo:"delta.png" }
+    ];
+
+    // Simple currency converter (approx static)
+    const FX = { USD:1, CAD:1.35, INR:83 };
+    const fmt = (amtUSD, cur) => {
+      const val = Math.round(amtUSD * FX[cur]);
+      return (cur==="INR" ? "₹" : cur==="CAD" ? "CA$" : "$") + val.toLocaleString() + " " + cur;
+    };
+
+    // Build WhatsApp message
+    function waLink(action, details) {
+      const msg =
+`Hello Flight to Z,
+
+${action.toUpperCase()}:
+
+From: ${details.from}
+To: ${details.to}
+Depart: ${details.depart || "-"}
+Return: ${details.return || "-"}
+Cabin: ${details.cabin}
+Pax: A${details.adult}/C${details.child}/I${details.infant}
+
+Selected: ${details.airline} (${details.stops}), Price: ${details.price}
+
+Coupon: FirstFlight15`;
+      return "https://wa.me/917009767211?text=" + encodeURIComponent(msg);
+    }
+
+    // Generate mock offers for the exact entered route only
+    function mockOffers(from, to) {
+      const baseUSD = 650 + Math.floor(Math.random()*400); // 650–1050
+      const picks = [
+        { airline:"Qatar Airways", code:"QR", stops:"1 Stop",  usd: baseUSD+40, duration:"18h 20m" },
+        { airline:"Emirates",      code:"EK", stops:"1 Stop",  usd: baseUSD+20, duration:"17h 55m" },
+        { airline:"Etihad",        code:"EY", stops:"1 Stop",  usd: baseUSD+10, duration:"18h 05m" },
+        { airline:"Air India",     code:"AI", stops:"Non-stop",usd: baseUSD+80, duration:"14h 50m" },
+        { airline:"Air Canada",    code:"AC", stops:"Non-stop",usd: baseUSD+90, duration:"14h 40m" },
+        { airline:"United Airlines",code:"UA",stops:"1 Stop",  usd: baseUSD-10, duration:"19h 15m" },
+        { airline:"Lufthansa",     code:"LH", stops:"1 Stop",  usd: baseUSD+60, duration:"16h 30m" },
+        { airline:"SWISS",         code:"LX", stops:"2 Stops", usd: baseUSD-30, duration:"22h 10m" },
+        { airline:"Air France",    code:"AF", stops:"2 Stops", usd: baseUSD-50, duration:"22h 45m" },
+        { airline:"KLM",           code:"KL", stops:"1 Stop",  usd: baseUSD+15, duration:"17h 35m" },
+        { airline:"Delta Air Lines",code:"DL",stops:"Multi",   usd: baseUSD-70, duration:"24h 20m" }
+      ];
+      return picks.map(p => {
+        const logo = AIRLINES.find(a=>a.code===p.code)?.logo || "airline.png";
+        return { ...p, logo, from, to };
+      });
+    }
+
+    function parseAirport(text) {
+      // Accept "DEL — New Delhi" or raw "DEL"
+      if (!text) return "";
+      const codeMatch = text.trim().slice(0,3).toUpperCase();
+      return codeMatch;
+    }
+
+    // Form handling
+    document.getElementById('flightForm').addEventListener('submit', (e)=>{
       e.preventDefault();
-      document.getElementById('results').innerHTML = sampleFlights.map(f => `
-        <div class="p-4 bg-white rounded-lg shadow mb-3">
-          <p class="font-bold">${f.airline}</p>
-          <p class="text-sm text-slate-600">${f.from} → ${f.to} | ${f.stops}</p>
-          <p class="text-sky-600 font-bold">${f.price}</p>
-          <a href="https://wa.me/917009767211?text=Hi, I want to book ${f.airline} ${f.from} → ${f.to}" target="_blank" class="mt-2 inline-block bg-green-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-600">Book Now via WhatsApp</a>
-        </div>
-      `).join('');
+      const from = parseAirport(document.getElementById('from').value);
+      const to = parseAirport(document.getElementById('to').value);
+      if (from.length!==3 || to.length!==3) {
+        alert("Please select valid airports from the list.");
+        return;
+      }
+      const depart = document.getElementById('depart').value;
+      const ret = document.getElementById('return').value;
+      const cabin = document.getElementById('cabin').value;
+      const adult = document.getElementById('adult').value;
+      const child = document.getElementById('child').value;
+      const infant = document.getElementById('infant').value;
+      const cur = document.getElementById('currency').value;
+
+      const offers = mockOffers(from, to);
+      const resultsGrid = document.getElementById('resultsGrid');
+      const wrap = document.getElementById('resultsWrap');
+      wrap.classList.remove('hidden');
+
+      resultsGrid.innerHTML = offers.map(o=>{
+        const price = fmt(o.usd, cur);
+        const details = {from, to, depart, return:ret, cabin, adult, child, infant, airline:o.airline, stops:o.stops, price};
+        const bookLink = waLink('Book Now', details);
+        const holdLink = waLink('Hold Now', details);
+        return `
+          <div class="p-4 bg-white rounded-xl shadow flex gap-4">
+            <img src="assets/logos/${o.logo}" alt="${o.airline}" class="w-14 h-14 object-contain rounded bg-white border"/>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="font-semibold">${o.airline}</p>
+                  <p class="text-xs text-slate-600">${o.stops} • ${o.duration}</p>
+                </div>
+                <div class="text-right">
+                  <p class="text-brand-600 font-extrabold">${price}</p>
+                  <p class="text-[11px] text-slate-500">incl. taxes • coupon <span class="font-semibold">FirstFlight15</span></p>
+                </div>
+              </div>
+              <p class="text-sm text-slate-700 mt-1">${o.from} → ${o.to} &nbsp;|&nbsp; ${cabin} &nbsp;|&nbsp; Pax A${adult}/C${child}/I${infant}</p>
+              <div class="mt-3 flex gap-2">
+                <a href="${bookLink}" target="_blank" class="px-3 py-2 rounded-lg bg-brand-600 text-white text-sm hover:bg-brand-700">Book Now</a>
+                <a href="${holdLink}" target="_blank" class="px-3 py-2 rounded-lg bg-white border text-sm hover:bg-slate-50">Hold Now</a>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
     });
   </script>
 </body>
