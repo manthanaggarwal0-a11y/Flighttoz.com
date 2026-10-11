@@ -44,7 +44,7 @@
     }
   </script>
   <style>
-    html { scroll-behavior:smooth }
+    html { scroll-behavior:smooth; scroll-padding-top:5rem }
     .animate-plane { animation: fly 6s linear infinite }
     @keyframes fly {
       0% { transform: translateX(-50px) translateY(0) }
@@ -133,8 +133,8 @@
       </div>
 
       <div class="inline-flex rounded-lg border bg-white overflow-hidden mb-4 text-sm" role="group" aria-label="Trip type">
-        <button type="button" class="trip-btn active px-4 py-2" data-trip="round">Round-trip</button>
-        <button type="button" class="trip-btn px-4 py-2 border-l" data-trip="oneway">One-way</button>
+        <button type="button" class="trip-btn active px-4 py-2" data-trip="round" aria-pressed="true">Round-trip</button>
+        <button type="button" class="trip-btn px-4 py-2 border-l" data-trip="oneway" aria-pressed="false">One-way</button>
       </div>
 
       <form id="flightForm" class="grid md:grid-cols-2 gap-4" novalidate>
@@ -194,11 +194,11 @@
         <div class="flex flex-wrap items-center justify-between mb-3 gap-2">
           <h3 class="text-xl font-bold">Available Deals</h3>
           <div class="text-sm text-slate-600 flex flex-wrap items-center gap-1">Stops:
-            <button type="button" class="stop-chip active px-2 py-0.5 bg-white rounded border" data-stops="all">All</button>
-            <button type="button" class="stop-chip px-2 py-0.5 bg-white rounded border" data-stops="Non-stop">Non-stop</button>
-            <button type="button" class="stop-chip px-2 py-0.5 bg-white rounded border" data-stops="1 Stop">1 Stop</button>
-            <button type="button" class="stop-chip px-2 py-0.5 bg-white rounded border" data-stops="2 Stops">2 Stops</button>
-            <button type="button" class="stop-chip px-2 py-0.5 bg-white rounded border" data-stops="Multi">Multi</button>
+            <button type="button" class="stop-chip active px-2 py-0.5 bg-white rounded border" data-stops="all" aria-pressed="true">All</button>
+            <button type="button" class="stop-chip px-2 py-0.5 bg-white rounded border" data-stops="Non-stop" aria-pressed="false">Non-stop</button>
+            <button type="button" class="stop-chip px-2 py-0.5 bg-white rounded border" data-stops="1 Stop" aria-pressed="false">1 Stop</button>
+            <button type="button" class="stop-chip px-2 py-0.5 bg-white rounded border" data-stops="2 Stops" aria-pressed="false">2 Stops</button>
+            <button type="button" class="stop-chip px-2 py-0.5 bg-white rounded border" data-stops="Multi" aria-pressed="false">Multi</button>
           </div>
         </div>
         <p class="text-xs text-slate-600 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mb-4">
@@ -263,7 +263,7 @@
         <a href="mailto:Sales@flighttoz.com" class="px-4 py-2 rounded bg-white border hover:bg-slate-50">✉️ Sales@flighttoz.com</a>
         <a href="https://wa.me/917009767211" target="_blank" rel="noopener" class="px-4 py-2 rounded bg-green-500 text-white hover:bg-green-600">💬 WhatsApp +91 70097 67211</a>
       </div>
-      <form id="contactForm" class="grid gap-4 bg-white p-6 rounded-xl shadow text-left">
+      <form id="contactForm" class="grid grid-cols-1 gap-4 bg-white p-6 rounded-xl shadow text-left">
         <label for="cName" class="sr-only">Your Name</label>
         <input id="cName" name="name" type="text" placeholder="Your Name" class="px-4 py-3 rounded-lg border" required>
         <label for="cEmail" class="sr-only">Your Email</label>
@@ -360,7 +360,10 @@
     let tripType = "round";
     document.querySelectorAll('.trip-btn').forEach(btn => btn.addEventListener('click', () => {
       tripType = btn.dataset.trip;
-      document.querySelectorAll('.trip-btn').forEach(b => b.classList.toggle('active', b === btn));
+      document.querySelectorAll('.trip-btn').forEach(b => {
+        b.classList.toggle('active', b === btn);
+        b.setAttribute('aria-pressed', b === btn);
+      });
       const oneWay = tripType === "oneway";
       document.getElementById('returnWrap').classList.toggle('opacity-50', oneWay);
       returnEl.disabled = oneWay;
@@ -441,13 +444,23 @@ Coupon: FirstFlight15`;
       });
     }
 
+    // Lowercase and strip accents/punctuation so "Montréal", "montreal" and "Montreal," all match
+    const norm = (s) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z ]/g, '').replace(/\s+/g, ' ').trim();
+    const CITY_ALIASES = {
+      "delhi":"DEL", "bombay":"BOM", "bangalore":"BLR", "madras":"MAA", "calcutta":"CCU",
+      "cochin":"COK", "trivandrum":"TRV", "nyc":"JFK", "new york city":"JFK",
+      "washington dc":"IAD", "sf":"SFO", "la":"LAX", "montreal":"YUL"
+    };
+
     // Accept "DEL — New Delhi", "DEL", "del" or a city name like "Toronto"
     function parseAirport(text) {
       const t = (text || "").trim();
       if (!t) return "";
       const m = t.match(/^([A-Za-z]{3})(?![A-Za-z])/);
       if (m && AIRPORTS.some(a => a[0] === m[1].toUpperCase())) return m[1].toUpperCase();
-      const byCity = AIRPORTS.find(a => a[1].toLowerCase() === t.toLowerCase());
+      const key = norm(t);
+      if (CITY_ALIASES[key]) return CITY_ALIASES[key];
+      const byCity = AIRPORTS.find(a => norm(a[1]) === key);
       return byCity ? byCity[0] : "";
     }
 
@@ -498,7 +511,10 @@ Coupon: FirstFlight15`;
 
     document.querySelectorAll('.stop-chip').forEach(chip => chip.addEventListener('click', () => {
       stopFilter = chip.dataset.stops;
-      document.querySelectorAll('.stop-chip').forEach(c => c.classList.toggle('active', c === chip));
+      document.querySelectorAll('.stop-chip').forEach(c => {
+        c.classList.toggle('active', c === chip);
+        c.setAttribute('aria-pressed', c === chip);
+      });
       renderResults();
     }));
 
@@ -548,6 +564,10 @@ Coupon: FirstFlight15`;
       const name = form.elements.name.value.trim();
       const email = form.elements.email.value.trim();
       const message = form.elements.message.value.trim();
+      if (!name || !message) {
+        (name ? form.elements.message : form.elements.name).focus();
+        return;
+      }
       const text = `Hello Flight to Z,\n\nName: ${name}\nEmail: ${email}\n\n${message}`;
       if (e.submitter && e.submitter.dataset.via === "email") {
         window.location.href = `mailto:Sales@flighttoz.com?subject=${encodeURIComponent("Website enquiry from " + name)}&body=${encodeURIComponent(text)}`;
