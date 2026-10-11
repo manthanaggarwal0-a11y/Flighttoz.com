@@ -5,6 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Flight to Z – Smart Flight Booking</title>
   <meta name="description" content="Flight to Z – Find and book affordable flights worldwide. Smart, simple, and secure." />
+  <link rel="canonical" href="https://flighttoz.com/" />
+  <link rel="icon" href="favicon.ico" />
+  <meta name="theme-color" content="#0891b2" />
+
+  <!-- Social share preview (WhatsApp, Facebook, X, LinkedIn) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Flight to Z" />
+  <meta property="og:title" content="Flight to Z – Smart Flight Booking" />
+  <meta property="og:description" content="Find and book affordable flights worldwide. Real experts, fast WhatsApp support." />
+  <meta property="og:url" content="https://flighttoz.com/" />
+  <meta property="og:image" content="https://flighttoz.com/logo.png" />
+  <meta name="twitter:card" content="summary" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    "name": "Flight to Z",
+    "url": "https://flighttoz.com/",
+    "logo": "https://flighttoz.com/logo.png",
+    "email": "Sales@flighttoz.com",
+    "telephone": "+91-70097-67211"
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -26,21 +51,26 @@
       50% { transform: translateX(50vw) translateY(-30px) }
       100% { transform: translateX(100vw) translateY(0) }
     }
+    @media (prefers-reduced-motion: reduce) { .animate-plane { animation: none } }
     .stars{letter-spacing:1px}
+    .stop-chip.active { background:#0891b2; color:#fff; border-color:#0891b2 }
+    .trip-btn.active { background:#0891b2; color:#fff }
   </style>
 </head>
 <body class="font-sans text-slate-800">
 
   <!-- Top Bar -->
-  <div class="bg-brand-600 text-white text-sm text-center py-2">
-   • ✉️ <a href="mailto:Sales@flighttoz.com" class="underline">Sales@flighttoz.com</a>
+  <div class="bg-brand-600 text-white text-sm text-center py-2 px-4">
+    ✉️ <a href="mailto:Sales@flighttoz.com" class="underline">Sales@flighttoz.com</a>
+    <span class="mx-2">•</span>
+    💬 <a href="https://wa.me/917009767211" target="_blank" rel="noopener" class="underline">+91 70097 67211</a>
   </div>
 
   <!-- Header -->
   <header class="sticky top-0 z-40 bg-white shadow">
     <div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
-      <a href="#" class="flex items-center gap-2">
-        <img src="logo.png" alt="Flight to Z Logo" class="h-10 w-10 rounded"/>
+      <a href="#home" class="flex items-center gap-2">
+        <img src="logo-128.png" alt="Flight to Z Logo" width="40" height="40" class="h-10 w-10 rounded"/>
         <span class="text-xl font-bold text-brand-600">Flight to Z</span>
       </a>
       <nav class="hidden md:flex gap-6 text-sm">
@@ -50,17 +80,29 @@
         <a href="#why" class="hover:text-brand-600">Why Choose Us</a>
         <a href="#contact" class="hover:text-brand-600">Contact</a>
       </nav>
+      <button id="menuBtn" class="md:hidden p-2 rounded border" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
     </div>
+    <nav id="mobileNav" class="md:hidden hidden border-t bg-white">
+      <div class="flex flex-col px-4 py-2 text-sm">
+        <a href="#home" class="py-2">Home</a>
+        <a href="#search" class="py-2">Search Flights</a>
+        <a href="#reviews" class="py-2">Reviews</a>
+        <a href="#why" class="py-2">Why Choose Us</a>
+        <a href="#contact" class="py-2">Contact</a>
+      </div>
+    </nav>
   </header>
 
   <!-- Promo Banner -->
-  <div class="bg-yellow-400 text-center text-base md:text-lg font-bold py-2">
+  <div class="bg-yellow-400 text-center text-base md:text-lg font-bold py-2 px-4">
     🎉 Up to <span class="underline">30% OFF</span> on select routes • Extra <span class="underline">15% OFF</span> first booking — Use coupon <span class="bg-white px-2 py-0.5 rounded text-sky-700">FirstFlight15</span>
   </div>
 
   <!-- Hero -->
   <section id="home" class="relative bg-gradient-to-r from-sky-100 to-cyan-50 overflow-hidden">
-    <div class="absolute top-10 left-0 animate-plane">
+    <div class="absolute top-10 left-0 animate-plane" aria-hidden="true">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-brand-600" fill="currentColor" viewBox="0 0 24 24">
         <path d="M2.5 19.5l19-7.5-19-7.5v5l13 2.5-13 2.5v5z"/>
       </svg>
@@ -76,9 +118,9 @@
   </section>
 
   <!-- Search -->
-  <section id="search" class="py-12 bg-white">
+  <section id="search" class="py-12 bg-white px-4">
     <div class="max-w-4xl mx-auto bg-slate-50 p-6 md:p-8 rounded-2xl shadow">
-      <div class="flex items-center justify-between mb-4 gap-3">
+      <div class="flex flex-wrap items-center justify-between mb-4 gap-3">
         <h2 class="text-2xl font-bold">Search Flights</h2>
         <div class="flex items-center gap-2">
           <label for="currency" class="text-sm text-slate-600">Currency</label>
@@ -90,30 +132,33 @@
         </div>
       </div>
 
-      <form id="flightForm" class="grid md:grid-cols-2 gap-4">
-        <!-- From / To with datalist; type first 2 letters -->
+      <div class="inline-flex rounded-lg border bg-white overflow-hidden mb-4 text-sm" role="group" aria-label="Trip type">
+        <button type="button" class="trip-btn active px-4 py-2" data-trip="round">Round-trip</button>
+        <button type="button" class="trip-btn px-4 py-2 border-l" data-trip="oneway">One-way</button>
+      </div>
+
+      <form id="flightForm" class="grid md:grid-cols-2 gap-4" novalidate>
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">From</label>
-          <input id="from" list="airports" placeholder="Type city or code (e.g., DE → DEL)" class="px-4 py-3 rounded-lg border w-full" required>
+          <label for="from" class="block text-xs font-semibold text-slate-600 mb-1">From</label>
+          <input id="from" list="airports" autocomplete="off" placeholder="Type city or code (e.g., DE → DEL)" class="px-4 py-3 rounded-lg border w-full" required>
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">To</label>
-          <input id="to" list="airports" placeholder="Type city or code (e.g., MU → BOM)" class="px-4 py-3 rounded-lg border w-full" required>
+          <label for="to" class="block text-xs font-semibold text-slate-600 mb-1">To</label>
+          <input id="to" list="airports" autocomplete="off" placeholder="Type city or code (e.g., MU → BOM)" class="px-4 py-3 rounded-lg border w-full" required>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Depart</label>
-          <input id="depart" type="date" class="px-4 py-3 rounded-lg border w-full">
+          <label for="depart" class="block text-xs font-semibold text-slate-600 mb-1">Depart</label>
+          <input id="depart" type="date" class="px-4 py-3 rounded-lg border w-full" required>
         </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Return</label>
+        <div id="returnWrap">
+          <label for="return" class="block text-xs font-semibold text-slate-600 mb-1">Return</label>
           <input id="return" type="date" class="px-4 py-3 rounded-lg border w-full">
         </div>
 
-        <!-- Compact Cabin + Passengers in same column -->
-        <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-4 gap-3">
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Cabin</label>
+        <div class="md:col-span-2 grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div class="col-span-2 md:col-span-1">
+            <label for="cabin" class="block text-xs font-semibold text-slate-600 mb-1">Cabin</label>
             <select id="cabin" class="px-3 py-2.5 rounded-lg border w-full text-sm">
               <option>Economy</option>
               <option>Premium Economy</option>
@@ -122,27 +167,20 @@
             </select>
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Adults</label>
-            <select id="adult" class="px-3 py-2.5 rounded-lg border w-full text-sm">
-              <option>1</option><option>2</option><option>3</option><option>4</option>
-              <option>5</option><option>6</option><option>7</option><option>8</option><option>9</option>
-            </select>
+            <label for="adult" class="block text-xs font-semibold text-slate-600 mb-1">Adults</label>
+            <select id="adult" class="px-3 py-2.5 rounded-lg border w-full text-sm"></select>
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Children (2–11)</label>
-            <select id="child" class="px-3 py-2.5 rounded-lg border w-full text-sm">
-              <option>0</option><option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option>
-            </select>
+            <label for="child" class="block text-xs font-semibold text-slate-600 mb-1">Children (2–11)</label>
+            <select id="child" class="px-3 py-2.5 rounded-lg border w-full text-sm"></select>
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Infants (&lt;2)</label>
-            <select id="infant" class="px-3 py-2.5 rounded-lg border w-full text-sm">
-              <option>0</option><option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option>
-            </select>
+            <label for="infant" class="block text-xs font-semibold text-slate-600 mb-1">Infants (&lt;2)</label>
+            <select id="infant" class="px-3 py-2.5 rounded-lg border w-full text-sm"></select>
           </div>
         </div>
+
+        <p id="formError" class="md:col-span-2 hidden text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2" role="alert"></p>
 
         <div class="md:col-span-2 flex items-center gap-3">
           <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-lg font-semibold">Show Deals</button>
@@ -153,15 +191,19 @@
 
       <!-- Results -->
       <div id="resultsWrap" class="mt-8 hidden">
-        <div class="flex items-center justify-between mb-3">
+        <div class="flex flex-wrap items-center justify-between mb-3 gap-2">
           <h3 class="text-xl font-bold">Available Deals</h3>
-          <div class="text-sm text-slate-600">Stops:
-            <span class="inline-block px-2 py-0.5 bg-white rounded border ml-1">Non-stop</span>
-            <span class="inline-block px-2 py-0.5 bg-white rounded border ml-1">1 Stop</span>
-            <span class="inline-block px-2 py-0.5 bg-white rounded border ml-1">2 Stops</span>
-            <span class="inline-block px-2 py-0.5 bg-white rounded border ml-1">Multi</span>
+          <div class="text-sm text-slate-600 flex flex-wrap items-center gap-1">Stops:
+            <button type="button" class="stop-chip active px-2 py-0.5 bg-white rounded border" data-stops="all">All</button>
+            <button type="button" class="stop-chip px-2 py-0.5 bg-white rounded border" data-stops="Non-stop">Non-stop</button>
+            <button type="button" class="stop-chip px-2 py-0.5 bg-white rounded border" data-stops="1 Stop">1 Stop</button>
+            <button type="button" class="stop-chip px-2 py-0.5 bg-white rounded border" data-stops="2 Stops">2 Stops</button>
+            <button type="button" class="stop-chip px-2 py-0.5 bg-white rounded border" data-stops="Multi">Multi</button>
           </div>
         </div>
+        <p class="text-xs text-slate-600 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mb-4">
+          ℹ️ Fares shown are <strong>indicative estimates</strong>. Exact price, taxes and availability are confirmed by our team on WhatsApp before booking.
+        </p>
         <div id="resultsGrid" class="grid md:grid-cols-2 gap-4"></div>
       </div>
     </div>
@@ -173,17 +215,17 @@
       <h2 class="text-3xl font-extrabold text-center mb-10">What Our Customers Say</h2>
       <div class="grid md:grid-cols-3 gap-6">
         <div class="p-6 bg-white rounded-xl shadow">
-          <div class="stars text-amber-500 text-lg">★★★★★</div>
+          <div class="stars text-amber-500 text-lg" aria-label="5 out of 5 stars">★★★★★</div>
           <p class="mt-3 italic">“Flight to Z turned a stressful multi-city plan into a breeze. They suggested smarter stopovers, flexible dates, and I still got seats together for my family. Transparent pricing and speedy responses.”</p>
           <p class="mt-3 font-bold">– Sarah Johnson (NYC → Mumbai)</p>
         </div>
         <div class="p-6 bg-white rounded-xl shadow">
-          <div class="stars text-amber-500 text-lg">★★★★★</div>
+          <div class="stars text-amber-500 text-lg" aria-label="5 out of 5 stars">★★★★★</div>
           <p class="mt-3 italic">“I shaved almost 30% off my Toronto–Delhi itinerary. The team proactively found better timings and even flagged a long layover I missed. Booked in minutes. Highly recommended.”</p>
           <p class="mt-3 font-bold">– Rahul Mehta (Toronto → Delhi)</p>
         </div>
         <div class="p-6 bg-white rounded-xl shadow">
-          <div class="stars text-amber-500 text-lg">★★★★★</div>
+          <div class="stars text-amber-500 text-lg" aria-label="5 out of 5 stars">★★★★★</div>
           <p class="mt-3 italic">“From WhatsApp to confirmed e-tickets in under an hour. Super clear options: non-stop, 1 stop, 2 stops — all with real airline choices. Will book again with Flight to Z.”</p>
           <p class="mt-3 font-bold">– David Brown (SF → Bangalore)</p>
         </div>
@@ -219,26 +261,51 @@
       <p class="text-slate-600 mb-6">Email us or ping on WhatsApp — our team replies fast.</p>
       <div class="flex flex-col md:flex-row items-center justify-center gap-3 mb-6">
         <a href="mailto:Sales@flighttoz.com" class="px-4 py-2 rounded bg-white border hover:bg-slate-50">✉️ Sales@flighttoz.com</a>
-        <target="_blank" class="px-4 py-2 rounded bg-green-500 text-white hover:bg-green-600">💬 WhatsApp</a>
-        <span class="text-slate-700"</span>
+        <a href="https://wa.me/917009767211" target="_blank" rel="noopener" class="px-4 py-2 rounded bg-green-500 text-white hover:bg-green-600">💬 WhatsApp +91 70097 67211</a>
       </div>
-      <form action="mailto:Sales@flighttoz.com" method="POST" enctype="text/plain" class="grid gap-4 bg-white p-6 rounded-xl shadow">
-        <input type="text" placeholder="Your Name" class="px-4 py-3 rounded-lg border" required>
-        <input type="email" placeholder="Your Email" class="px-4 py-3 rounded-lg border" required>
-        <textarea placeholder="Message" class="px-4 py-3 rounded-lg border h-32" required></textarea>
-        <button type="submit" class="bg-brand-600 text-white py-3 rounded-lg hover:bg-brand-700">Send Message</button>
+      <form id="contactForm" class="grid gap-4 bg-white p-6 rounded-xl shadow text-left">
+        <label for="cName" class="sr-only">Your Name</label>
+        <input id="cName" name="name" type="text" placeholder="Your Name" class="px-4 py-3 rounded-lg border" required>
+        <label for="cEmail" class="sr-only">Your Email</label>
+        <input id="cEmail" name="email" type="email" placeholder="Your Email" class="px-4 py-3 rounded-lg border" required>
+        <label for="cMsg" class="sr-only">Message</label>
+        <textarea id="cMsg" name="message" placeholder="Message" class="px-4 py-3 rounded-lg border h-32" required></textarea>
+        <div class="grid md:grid-cols-2 gap-3">
+          <button type="submit" data-via="whatsapp" class="bg-green-500 text-white py-3 rounded-lg hover:bg-green-600">💬 Send on WhatsApp</button>
+          <button type="submit" data-via="email" class="bg-brand-600 text-white py-3 rounded-lg hover:bg-brand-700">✉️ Send by Email</button>
+        </div>
       </form>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="py-6 bg-slate-800 text-center text-slate-200 text-sm">
-    © <span id="year"></span> Flight to Z. All rights reserved.| ✉️ Sales@flighttoz.com
+  <footer class="py-6 bg-slate-800 text-center text-slate-200 text-sm px-4">
+    <p>© <span id="year"></span> Flight to Z. All rights reserved. | ✉️ Sales@flighttoz.com | 💬 +91 70097 67211</p>
+    <p class="mt-2 space-x-3">
+      <a href="privacy.html" class="underline hover:text-white">Privacy Policy</a>
+      <a href="terms.html" class="underline hover:text-white">Terms &amp; Conditions</a>
+      <a href="refund.html" class="underline hover:text-white">Refund &amp; Cancellation</a>
+    </p>
   </footer>
 
   <!-- Scripts -->
   <script>
+    const WHATSAPP_NUMBER = "917009767211";
+    const MAX_PAX = 9;
+
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    menuBtn.addEventListener('click', () => {
+      const open = mobileNav.classList.toggle('hidden') === false;
+      menuBtn.setAttribute('aria-expanded', open);
+    });
+    mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileNav.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', false);
+    }));
 
     // --- Airport list (IN / US / CA major). Type first 2 letters to match. Extend as needed. ---
     const AIRPORTS = [
@@ -247,6 +314,7 @@
       ["MAA","Chennai","Chennai Intl"],["HYD","Hyderabad","Rajiv Gandhi"],["CCU","Kolkata","Netaji Subhas Chandra Bose"],
       ["AMD","Ahmedabad","Sardar Vallabhbhai Patel"],["COK","Kochi","Cochin Intl"],["PNQ","Pune","Pune"],
       ["GOI","Goa","Manohar Intl"],["TRV","Thiruvananthapuram","Trivandrum"],["ATQ","Amritsar","Sri Guru Ram Dass"],
+      ["IXC","Chandigarh","Shaheed Bhagat Singh"],["JAI","Jaipur","Jaipur Intl"],["LKO","Lucknow","Chaudhary Charan Singh"],
       // USA
       ["JFK","New York","John F. Kennedy"],["EWR","Newark","Newark Liberty"],["LGA","New York","LaGuardia"],
       ["LAX","Los Angeles","Los Angeles Intl"],["SFO","San Francisco","San Francisco Intl"],["ORD","Chicago","O'Hare"],
@@ -254,12 +322,50 @@
       ["BOS","Boston","Logan"],["ATL","Atlanta","Hartsfield–Jackson"],["IAH","Houston","George Bush"],
       // Canada
       ["YYZ","Toronto","Pearson"],["YVR","Vancouver","Vancouver Intl"],["YUL","Montréal","Trudeau"],
-      ["YYC","Calgary","Calgary Intl"],["YOW","Ottawa","Macdonald–Cartier"],["YEG","Edmonton","Edmonton Intl"]
+      ["YYC","Calgary","Calgary Intl"],["YOW","Ottawa","Macdonald–Cartier"],["YEG","Edmonton","Edmonton Intl"],
+      ["YWG","Winnipeg","Winnipeg Intl"]
     ];
 
     // Fill datalist
     const dl = document.getElementById('airports');
     dl.innerHTML = AIRPORTS.map(([code,city,name]) => `<option value="${code} — ${city}">${name}</option>`).join('');
+
+    // Passenger dropdowns
+    const fillSelect = (id, from, to, selected) => {
+      document.getElementById(id).innerHTML = Array.from({length: to-from+1}, (_, i) => {
+        const n = from + i;
+        return `<option${n===selected?' selected':''}>${n}</option>`;
+      }).join('');
+    };
+    fillSelect('adult', 1, 9, 1);
+    fillSelect('child', 0, 8, 0);
+    fillSelect('infant', 0, 9, 0);
+
+    // Dates: no past dates, return not before depart
+    const departEl = document.getElementById('depart');
+    const returnEl = document.getElementById('return');
+    const todayISO = () => {
+      const d = new Date();
+      d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+      return d.toISOString().slice(0,10);
+    };
+    departEl.min = todayISO();
+    returnEl.min = todayISO();
+    departEl.addEventListener('change', () => {
+      returnEl.min = departEl.value || todayISO();
+      if (returnEl.value && returnEl.value < returnEl.min) returnEl.value = "";
+    });
+
+    // Trip type
+    let tripType = "round";
+    document.querySelectorAll('.trip-btn').forEach(btn => btn.addEventListener('click', () => {
+      tripType = btn.dataset.trip;
+      document.querySelectorAll('.trip-btn').forEach(b => b.classList.toggle('active', b === btn));
+      const oneWay = tripType === "oneway";
+      document.getElementById('returnWrap').classList.toggle('opacity-50', oneWay);
+      returnEl.disabled = oneWay;
+      if (oneWay) returnEl.value = "";
+    }));
 
     // --- Airlines + logo filenames (place files in /assets/logos/) ---
     const AIRLINES = [
@@ -283,13 +389,16 @@
       return (cur==="INR" ? "₹" : cur==="CAD" ? "CA$" : "$") + val.toLocaleString() + " " + cur;
     };
 
-    // Build WhatsApp message
+    // Build a wa.me link with a prefilled message
+    const waUrl = (text) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+
     function waLink(action, details) {
       const msg =
 `Hello Flight to Z,
 
 ${action.toUpperCase()}:
 
+Trip: ${details.trip}
 From: ${details.from}
 To: ${details.to}
 Depart: ${details.depart || "-"}
@@ -297,14 +406,22 @@ Return: ${details.return || "-"}
 Cabin: ${details.cabin}
 Pax: A${details.adult}/C${details.child}/I${details.infant}
 
-Selected: ${details.airline} (${details.stops}), Price: ${details.price}
+Selected: ${details.airline} (${details.stops}), Indicative price: ${details.price}
 
 Coupon: FirstFlight15`;
+      return waUrl(msg);
     }
 
-    // Generate mock offers for the exact entered route only
-    function mockOffers(from, to) {
-      const baseUSD = 650 + Math.floor(Math.random()*400); // 650–1050
+    // Same route + date always gives the same estimate (no random jumps between searches)
+    function routeSeed(str) {
+      let h = 0;
+      for (const ch of str) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+      return h;
+    }
+
+    // Indicative offers for the entered route
+    function mockOffers(from, to, depart) {
+      const baseUSD = 650 + (routeSeed(from + to + depart) % 400); // 650–1049
       const picks = [
         { airline:"Qatar Airways", code:"QR", stops:"1 Stop",  usd: baseUSD+40, duration:"18h 20m" },
         { airline:"Emirates",      code:"EK", stops:"1 Stop",  usd: baseUSD+20, duration:"17h 55m" },
@@ -324,63 +441,119 @@ Coupon: FirstFlight15`;
       });
     }
 
+    // Accept "DEL — New Delhi", "DEL", "del" or a city name like "Toronto"
     function parseAirport(text) {
-      // Accept "DEL — New Delhi" or raw "DEL"
-      if (!text) return "";
-      const codeMatch = text.trim().slice(0,3).toUpperCase();
-      return codeMatch;
+      const t = (text || "").trim();
+      if (!t) return "";
+      const m = t.match(/^([A-Za-z]{3})(?![A-Za-z])/);
+      if (m && AIRPORTS.some(a => a[0] === m[1].toUpperCase())) return m[1].toUpperCase();
+      const byCity = AIRPORTS.find(a => a[1].toLowerCase() === t.toLowerCase());
+      return byCity ? byCity[0] : "";
     }
 
-    // Form handling
-    document.getElementById('flightForm').addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const from = parseAirport(document.getElementById('from').value);
-      const to = parseAirport(document.getElementById('to').value);
-      if (from.length!==3 || to.length!==3) {
-        alert("Please select valid airports from the list.");
+    const errorEl = document.getElementById('formError');
+    const showError = (msg) => { errorEl.textContent = msg; errorEl.classList.remove('hidden'); };
+
+    let lastSearch = null;
+    let stopFilter = "all";
+
+    function renderResults() {
+      if (!lastSearch) return;
+      const { offers, details, cur } = lastSearch;
+      const shown = offers.filter(o => stopFilter === "all" || o.stops === stopFilter);
+      const resultsGrid = document.getElementById('resultsGrid');
+      if (!shown.length) {
+        resultsGrid.innerHTML = `<p class="text-sm text-slate-600 md:col-span-2">No ${stopFilter.toLowerCase()} options for this route. Message us on WhatsApp and we'll find one.</p>`;
         return;
       }
-      const depart = document.getElementById('depart').value;
-      const ret = document.getElementById('return').value;
-      const cabin = document.getElementById('cabin').value;
-      const adult = document.getElementById('adult').value;
-      const child = document.getElementById('child').value;
-      const infant = document.getElementById('infant').value;
-      const cur = document.getElementById('currency').value;
-
-      const offers = mockOffers(from, to);
-      const resultsGrid = document.getElementById('resultsGrid');
-      const wrap = document.getElementById('resultsWrap');
-      wrap.classList.remove('hidden');
-
-      resultsGrid.innerHTML = offers.map(o=>{
+      resultsGrid.innerHTML = shown.map(o=>{
         const price = fmt(o.usd, cur);
-        const details = {from, to, depart, return:ret, cabin, adult, child, infant, airline:o.airline, stops:o.stops, price};
-        const bookLink = waLink('Book Now', details);
-        const holdLink = waLink('Hold Now', details);
+        const d = { ...details, airline:o.airline, stops:o.stops, price };
+        const bookLink = waLink('Book Now', d);
+        const holdLink = waLink('Hold Now', d);
         return `
           <div class="p-4 bg-white rounded-xl shadow flex gap-4">
-            <img src="assets/logos/${o.logo}" alt="${o.airline}" class="w-14 h-14 object-contain rounded bg-white border"/>
-            <div class="flex-1">
-              <div class="flex items-center justify-between">
+            <img src="assets/logos/${o.logo}" alt="${o.airline}" loading="lazy" class="w-14 h-14 object-contain rounded bg-white border"/>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
                 <div>
                   <p class="font-semibold">${o.airline}</p>
-                  <p class="text-xs text-slate-600">${o.stops} • ${o.duration}</p>
+                  <p class="text-xs text-slate-600">${o.stops} • ~${o.duration}</p>
                 </div>
                 <div class="text-right">
-                  <p class="text-brand-600 font-extrabold">${price}</p>
-                  <p class="text-[11px] text-slate-500">incl. taxes • coupon <span class="font-semibold">FirstFlight15</span></p>
+                  <p class="text-brand-600 font-extrabold">from ${price}</p>
+                  <p class="text-[11px] text-slate-500">estimate • coupon <span class="font-semibold">FirstFlight15</span></p>
                 </div>
               </div>
-              <p class="text-sm text-slate-700 mt-1">${o.from} → ${o.to} &nbsp;|&nbsp; ${cabin} &nbsp;|&nbsp; Pax A${adult}/C${child}/I${infant}</p>
+              <p class="text-sm text-slate-700 mt-1">${o.from} → ${o.to} &nbsp;|&nbsp; ${d.cabin} &nbsp;|&nbsp; Pax A${d.adult}/C${d.child}/I${d.infant}</p>
               <div class="mt-3 flex gap-2">
-                <a href="${bookLink}" target="_blank" class="px-3 py-2 rounded-lg bg-brand-600 text-white text-sm hover:bg-brand-700">Book Now</a>
-                <a href="${holdLink}" target="_blank" class="px-3 py-2 rounded-lg bg-white border text-sm hover:bg-slate-50">Hold Now</a>
+                <a href="${bookLink}" target="_blank" rel="noopener" class="px-3 py-2 rounded-lg bg-brand-600 text-white text-sm hover:bg-brand-700">Book Now</a>
+                <a href="${holdLink}" target="_blank" rel="noopener" class="px-3 py-2 rounded-lg bg-white border text-sm hover:bg-slate-50">Hold Now</a>
               </div>
             </div>
           </div>
         `;
       }).join('');
+    }
+
+    document.querySelectorAll('.stop-chip').forEach(chip => chip.addEventListener('click', () => {
+      stopFilter = chip.dataset.stops;
+      document.querySelectorAll('.stop-chip').forEach(c => c.classList.toggle('active', c === chip));
+      renderResults();
+    }));
+
+    document.getElementById('currency').addEventListener('change', () => {
+      if (lastSearch) { lastSearch.cur = document.getElementById('currency').value; renderResults(); }
+    });
+
+    // Form handling
+    document.getElementById('flightForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      errorEl.classList.add('hidden');
+
+      const from = parseAirport(document.getElementById('from').value);
+      const to = parseAirport(document.getElementById('to').value);
+      const depart = departEl.value;
+      const ret = returnEl.value;
+      const adult = +document.getElementById('adult').value;
+      const child = +document.getElementById('child').value;
+      const infant = +document.getElementById('infant').value;
+
+      if (!from || !to) return showError("Please select valid airports from the list (e.g., DEL — New Delhi).");
+      if (from === to) return showError("From and To airports can't be the same.");
+      if (!depart) return showError("Please choose a departure date.");
+      if (depart < todayISO()) return showError("Departure date can't be in the past.");
+      if (tripType === "round" && !ret) return showError("Please choose a return date, or switch to One-way.");
+      if (ret && ret < depart) return showError("Return date can't be before the departure date.");
+      if (adult + child > MAX_PAX) return showError(`Maximum ${MAX_PAX} passengers (adults + children) per booking. For groups, message us on WhatsApp.`);
+      if (infant > adult) return showError("Each infant must travel with an adult — infants can't be more than adults.");
+
+      const details = {
+        trip: tripType === "round" ? "Round-trip" : "One-way",
+        from, to, depart, return: tripType === "round" ? ret : "",
+        cabin: document.getElementById('cabin').value, adult, child, infant
+      };
+      lastSearch = { offers: mockOffers(from, to, depart), details, cur: document.getElementById('currency').value };
+
+      document.getElementById('resultsWrap').classList.remove('hidden');
+      renderResults();
+      document.getElementById('resultsWrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // Contact form → WhatsApp or email (no server needed)
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const form = e.target;
+      if (!form.reportValidity()) return;
+      const name = form.elements.name.value.trim();
+      const email = form.elements.email.value.trim();
+      const message = form.elements.message.value.trim();
+      const text = `Hello Flight to Z,\n\nName: ${name}\nEmail: ${email}\n\n${message}`;
+      if (e.submitter && e.submitter.dataset.via === "email") {
+        window.location.href = `mailto:Sales@flighttoz.com?subject=${encodeURIComponent("Website enquiry from " + name)}&body=${encodeURIComponent(text)}`;
+      } else {
+        window.open(waUrl(text), "_blank", "noopener");
+      }
     });
   </script>
 </body>
