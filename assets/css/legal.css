@@ -1,0 +1,13 @@
+/* Styles for the policy pages (privacy, terms, refund) */
+@font-face { font-family:'Inter'; font-style:normal; font-weight:400; font-display:swap; src:url(../fonts/inter-latin-400-normal.woff2) format('woff2'); }
+@font-face { font-family:'Inter'; font-style:normal; font-weight:700; font-display:swap; src:url(../fonts/inter-latin-700-normal.woff2) format('woff2'); }
+body { font-family: Inter, ui-sans-serif, system-ui, sans-serif; color:#1e293b; background:#fff; margin:0; line-height:1.65 }
+header { background:#0891b2; color:#fff; padding:14px 16px }
+header a { color:#fff; font-weight:700; text-decoration:none }
+main { max-width:760px; margin:0 auto; padding:24px 16px 48px }
+h1 { font-size:1.9rem; margin:0 0 4px }
+h2 { font-size:1.2rem; margin-top:28px }
+.muted { color:#64748b; font-size:.9rem }
+a { color:#0e7490 }
+footer { background:#1e293b; color:#e2e8f0; text-align:center; padding:18px 16px; font-size:.9rem }
+footer a { color:#e2e8f0 }
