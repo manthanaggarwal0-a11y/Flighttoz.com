@@ -1,4 +1,4 @@
-# Flight to Z — flighttoz.com
+# Flight to Z — [flighttoz.com](https://flighttoz.com/)
 
 Static website hosted on GitHub Pages (custom domain in `CNAME`).
 
