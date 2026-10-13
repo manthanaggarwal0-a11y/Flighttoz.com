@@ -4,7 +4,7 @@ Static website hosted on GitHub Pages (custom domain in `CNAME`).
 
 - `index.html` — home page
 - `privacy.html`, `terms.html`, `refund.html` — policy pages
-- `assets/js/app.js` — search, currency switch, WhatsApp booking links, contact form
+- `assets/js/app.js` — quote form and contact form (sent via WhatsApp or email)
 - `assets/css/site.css` — compiled styles (do not edit by hand)
 - `assets/css/input.css` + `tailwind.config.js` — source for `site.css`
 - `assets/fonts/` — self-hosted Inter font

@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Flight to Z – Smart Flight Booking</title>
-  <meta name="description" content="Flight to Z – Find and book affordable flights between India, the USA and Canada. Prices in USD, CAD and INR, real experts on WhatsApp." />
+  <meta name="description" content="Flight to Z – Find and book affordable flights between India, the USA and Canada. Free quotes in USD, CAD and INR from real experts on WhatsApp or email." />
   <link rel="canonical" href="https://flighttoz.com/" />
   <link rel="icon" href="favicon.ico" />
   <meta name="theme-color" content="#0891b2" />
@@ -15,7 +15,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Flight to Z" />
   <meta property="og:title" content="Flight to Z – Smart Flight Booking" />
-  <meta property="og:description" content="Find and book affordable flights worldwide. Prices in USD, CAD and INR. Real experts, fast WhatsApp support." />
+  <meta property="og:description" content="Find and book affordable flights worldwide. Free quotes in USD, CAD and INR. Real experts, fast WhatsApp support." />
   <meta property="og:url" content="https://flighttoz.com/" />
   <meta property="og:image" content="https://flighttoz.com/logo.png" />
   <meta name="twitter:card" content="summary" />
@@ -53,7 +53,7 @@
         <span class="text-xl font-extrabold text-brand-600 whitespace-nowrap">Flight to Z</span>
       </a>
       <nav class="hidden lg:flex gap-6 text-sm font-medium">
-        <a href="#search" class="hover:text-brand-600">Search Flights</a>
+        <a href="#search" class="hover:text-brand-600">Get a Quote</a>
         <a href="#routes" class="hover:text-brand-600">Popular Routes</a>
         <a href="#how" class="hover:text-brand-600">How It Works</a>
         <a href="#reviews" class="hover:text-brand-600">Reviews</a>
@@ -61,11 +61,6 @@
         <a href="#contact" class="hover:text-brand-600">Contact</a>
       </nav>
       <div class="flex items-center gap-2">
-        <div class="hidden sm:inline-flex rounded-lg border overflow-hidden text-xs font-semibold" role="group" aria-label="Currency">
-          <button type="button" class="cur-btn px-2.5 py-1.5" data-cur="USD" aria-pressed="false">USD</button>
-          <button type="button" class="cur-btn px-2.5 py-1.5 border-l" data-cur="CAD" aria-pressed="false">CAD</button>
-          <button type="button" class="cur-btn px-2.5 py-1.5 border-l" data-cur="INR" aria-pressed="false">INR</button>
-        </div>
         <a href="https://wa.me/917009767211" target="_blank" rel="noopener" class="hidden md:inline-flex items-center gap-1 bg-green-500 hover:bg-green-600 text-white text-sm font-semibold px-3 py-2 rounded-lg">💬 WhatsApp</a>
         <button id="menuBtn" class="lg:hidden p-2 rounded-lg border" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
           <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -74,7 +69,7 @@
     </div>
     <nav id="mobileNav" class="lg:hidden hidden border-t bg-white">
       <div class="flex flex-col px-4 py-2 text-base">
-        <a href="#search" class="py-2.5">Search Flights</a>
+        <a href="#search" class="py-2.5">Get a Quote</a>
         <a href="#routes" class="py-2.5">Popular Routes</a>
         <a href="#how" class="py-2.5">How It Works</a>
         <a href="#reviews" class="py-2.5">Reviews</a>
@@ -99,11 +94,11 @@
     <div class="max-w-7xl mx-auto px-4 pt-16 pb-36 md:pt-24 md:pb-44 text-center">
       <p class="inline-block bg-brand-900/40 rounded-full px-4 py-1 text-sm font-medium mb-5">✈️ India ⇄ USA &amp; Canada flights</p>
       <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight">Book with <span class="text-yellow-300 whitespace-nowrap">Flight to Z</span></h1>
-      <p class="mt-5 text-lg md:text-xl text-cyan-50 max-w-2xl mx-auto">Our best team support — smart, easy &amp; affordable flights worldwide. See fares in <strong>USD</strong>, <strong>CAD</strong> or <strong>INR</strong>.</p>
+      <p class="mt-5 text-lg md:text-xl text-cyan-50 max-w-2xl mx-auto">Our best team support — smart, easy &amp; affordable flights worldwide. Get free quotes in <strong>USD</strong>, <strong>CAD</strong> or <strong>INR</strong>.</p>
       <ul class="mt-8 flex flex-wrap justify-center gap-2 md:gap-3 text-sm md:text-base">
         <li class="bg-brand-900/40 rounded-lg px-3 py-1.5 md:px-4 md:py-2">✓ Real people on WhatsApp</li>
         <li class="bg-brand-900/40 rounded-lg px-3 py-1.5 md:px-4 md:py-2">✓ Hold a fare before you pay</li>
-        <li class="bg-brand-900/40 rounded-lg px-3 py-1.5 md:px-4 md:py-2">✓ Prices in USD · CAD · INR</li>
+        <li class="bg-brand-900/40 rounded-lg px-3 py-1.5 md:px-4 md:py-2">✓ Free quotes in USD · CAD · INR</li>
       </ul>
     </div>
   </section>
@@ -112,9 +107,12 @@
   <section id="search" class="relative z-10 -mt-28 md:-mt-32 px-4 pb-12">
     <div class="max-w-5xl mx-auto bg-white p-5 sm:p-6 md:p-8 rounded-2xl shadow-xl ring-1 ring-slate-200">
       <div class="flex flex-wrap items-center justify-between mb-5 gap-3">
-        <h2 class="text-2xl md:text-3xl font-extrabold">Search Flights</h2>
+        <div>
+          <h2 class="text-2xl md:text-3xl font-extrabold">Get a Free Flight Quote</h2>
+          <p class="mt-1 text-sm text-slate-600">Tell us your trip. Our team replies with the best fares on WhatsApp or email.</p>
+        </div>
         <div class="flex flex-wrap items-center gap-2">
-          <span id="currencyLabel" class="text-sm font-medium text-slate-600 whitespace-nowrap">Prices in</span>
+          <span id="currencyLabel" class="text-sm font-medium text-slate-600 whitespace-nowrap">Quote in</span>
           <div class="inline-flex rounded-lg border overflow-hidden text-sm font-semibold" role="group" aria-labelledby="currencyLabel">
             <button type="button" class="cur-btn px-3 py-2 whitespace-nowrap" data-cur="USD" aria-pressed="false">$ USD</button>
             <button type="button" class="cur-btn px-3 py-2 border-l whitespace-nowrap" data-cur="CAD" aria-pressed="false">CA$ CAD</button>
@@ -131,11 +129,11 @@
       <form id="flightForm" class="grid md:grid-cols-2 gap-4" novalidate>
         <div>
           <label for="from" class="block text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1">From</label>
-          <input id="from" list="airports" autocomplete="off" placeholder="City or code (e.g., Toronto, YYZ)" class="px-4 py-3.5 rounded-lg border border-slate-300 w-full text-base focus:outline-none focus:ring-2 focus:ring-brand-500" required>
+          <input id="from" list="airports" autocomplete="off" maxlength="60" placeholder="City or airport (e.g., Toronto)" class="px-4 py-3.5 rounded-lg border border-slate-300 w-full text-base focus:outline-none focus:ring-2 focus:ring-brand-500" required>
         </div>
         <div>
           <label for="to" class="block text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1">To</label>
-          <input id="to" list="airports" autocomplete="off" placeholder="City or code (e.g., Delhi, DEL)" class="px-4 py-3.5 rounded-lg border border-slate-300 w-full text-base focus:outline-none focus:ring-2 focus:ring-brand-500" required>
+          <input id="to" list="airports" autocomplete="off" maxlength="60" placeholder="City or airport (e.g., Delhi)" class="px-4 py-3.5 rounded-lg border border-slate-300 w-full text-base focus:outline-none focus:ring-2 focus:ring-brand-500" required>
         </div>
 
         <div>
@@ -171,31 +169,32 @@
           </div>
         </div>
 
+        <div>
+          <label for="qName" class="block text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1">Your name</label>
+          <input id="qName" type="text" autocomplete="name" maxlength="80" placeholder="Full name" class="px-4 py-3.5 rounded-lg border border-slate-300 w-full text-base focus:outline-none focus:ring-2 focus:ring-brand-500" required>
+        </div>
+        <div>
+          <label for="qPhone" class="block text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1">Phone / WhatsApp <span class="normal-case font-normal">(optional)</span></label>
+          <input id="qPhone" type="tel" autocomplete="tel" maxlength="20" placeholder="+1 416 555 0123" class="px-4 py-3.5 rounded-lg border border-slate-300 w-full text-base focus:outline-none focus:ring-2 focus:ring-brand-500">
+        </div>
+        <div class="md:col-span-2">
+          <label for="qNotes" class="block text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1">Anything else? <span class="normal-case font-normal">(optional)</span></label>
+          <textarea id="qNotes" maxlength="500" rows="2" placeholder="Flexible dates, preferred airline, baggage, hold a fare…" class="px-4 py-3 rounded-lg border border-slate-300 w-full text-base focus:outline-none focus:ring-2 focus:ring-brand-500"></textarea>
+        </div>
+
         <p id="formError" class="md:col-span-2 hidden text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2" role="alert"></p>
 
-        <div class="md:col-span-2">
-          <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white py-4 rounded-lg font-bold text-lg shadow">Show Deals →</button>
+        <div class="md:col-span-2 grid sm:grid-cols-2 gap-3">
+          <button type="submit" data-via="whatsapp" class="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-lg font-bold text-lg shadow">💬 Send on WhatsApp</button>
+          <button type="submit" data-via="email" class="w-full bg-brand-600 hover:bg-brand-700 text-white py-4 rounded-lg font-bold text-lg shadow">✉️ Send by Email</button>
         </div>
       </form>
 
       <datalist id="airports"></datalist>
 
-      <!-- Results -->
-      <div id="resultsWrap" class="mt-8 hidden">
-        <div class="flex flex-wrap items-center justify-between mb-3 gap-2">
-          <h3 class="text-xl font-bold">Available Deals</h3>
-          <div class="text-sm text-slate-600 flex flex-wrap items-center gap-1">Stops:
-            <button type="button" class="stop-chip active px-2 py-0.5 bg-white rounded border" data-stops="all" aria-pressed="true">All</button>
-            <button type="button" class="stop-chip px-2 py-0.5 bg-white rounded border" data-stops="Non-stop" aria-pressed="false">Non-stop</button>
-            <button type="button" class="stop-chip px-2 py-0.5 bg-white rounded border" data-stops="1 Stop" aria-pressed="false">1 Stop</button>
-            <button type="button" class="stop-chip px-2 py-0.5 bg-white rounded border" data-stops="2 Stops" aria-pressed="false">2 Stops</button>
-            <button type="button" class="stop-chip px-2 py-0.5 bg-white rounded border" data-stops="Multi" aria-pressed="false">Multi</button>
-          </div>
-        </div>
-        <p class="text-xs text-slate-600 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mb-4">
-          ℹ️ Fares shown are <strong>indicative estimates</strong>. Exact price, taxes and availability are confirmed by our team on WhatsApp before booking.
-        </p>
-        <div id="resultsGrid" class="grid md:grid-cols-2 gap-4"></div>
+      <div id="quoteSent" class="hidden mt-6 rounded-xl bg-green-50 border border-green-200 p-4 text-green-900" role="status" aria-live="polite">
+        <p class="font-semibold">✅ Almost done!</p>
+        <p id="quoteSentText" class="mt-1 text-sm"></p>
       </div>
     </div>
   </section>
@@ -213,7 +212,7 @@
     <div class="max-w-6xl mx-auto px-4">
       <div class="text-center mb-10">
         <h2 class="text-3xl md:text-4xl font-extrabold">Popular Routes</h2>
-        <p class="mt-3 text-slate-600">Tap a route to search it. Indicative starting fares in your chosen currency.</p>
+        <p class="mt-3 text-slate-600">Tap a route to start a free quote.</p>
       </div>
       <div id="routeGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </div>
@@ -226,18 +225,18 @@
       <ol class="grid md:grid-cols-3 gap-6">
         <li class="bg-white rounded-2xl p-6 shadow-sm ring-1 ring-slate-200">
           <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand-600 text-white font-extrabold text-lg">1</span>
-          <h3 class="mt-4 text-lg font-bold">Search your trip</h3>
-          <p class="mt-2 text-slate-600">Enter your route, dates and passengers, and see indicative fares in USD, CAD or INR.</p>
+          <h3 class="mt-4 text-lg font-bold">Tell us your trip</h3>
+          <p class="mt-2 text-slate-600">Fill in your route, dates and passengers, and choose USD, CAD or INR for your quote.</p>
         </li>
         <li class="bg-white rounded-2xl p-6 shadow-sm ring-1 ring-slate-200">
           <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand-600 text-white font-extrabold text-lg">2</span>
-          <h3 class="mt-4 text-lg font-bold">Chat with an expert</h3>
-          <p class="mt-2 text-slate-600">Tap Book Now or Hold Now. Your trip details open in WhatsApp, and our team confirms the exact fare.</p>
+          <h3 class="mt-4 text-lg font-bold">Send it in one tap</h3>
+          <p class="mt-2 text-slate-600">Tap Send on WhatsApp or Send by Email. Your details are filled in for you — just press send.</p>
         </li>
         <li class="bg-white rounded-2xl p-6 shadow-sm ring-1 ring-slate-200">
           <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand-600 text-white font-extrabold text-lg">3</span>
-          <h3 class="mt-4 text-lg font-bold">Hold or book</h3>
-          <p class="mt-2 text-slate-600">Hold the fare where the airline allows it, or book right away and get your e-ticket.</p>
+          <h3 class="mt-4 text-lg font-bold">Get the best fares</h3>
+          <p class="mt-2 text-slate-600">Our team replies with the best options. Hold a fare where the airline allows it, or book and get your e-ticket.</p>
         </li>
       </ol>
     </div>
@@ -265,8 +264,8 @@
         </div>
         <div class="p-6 bg-slate-50 rounded-2xl ring-1 ring-slate-200">
           <div class="text-3xl">🇨🇦</div>
-          <h3 class="mt-3 font-bold text-lg">USD, CAD &amp; INR Prices</h3>
-          <p class="mt-2 text-slate-600">Flying from Canada, the US or India? Switch the currency anytime and every fare updates instantly.</p>
+          <h3 class="mt-3 font-bold text-lg">Quotes in USD, CAD &amp; INR</h3>
+          <p class="mt-2 text-slate-600">Flying from Canada, the US or India? Choose your currency and we quote in it.</p>
         </div>
         <div class="p-6 bg-slate-50 rounded-2xl ring-1 ring-slate-200">
           <div class="text-3xl">👨‍👩‍👧</div>
@@ -312,20 +311,20 @@
       <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10">Frequently Asked Questions</h2>
       <div class="space-y-3">
         <details class="group rounded-xl ring-1 ring-slate-200 bg-slate-50 p-5">
-          <summary class="flex items-center justify-between gap-4 font-semibold text-lg">Are the prices on the website final?<span class="faq-plus text-2xl text-brand-600 transition-transform">+</span></summary>
-          <p class="mt-3 text-slate-600">No. Fares shown are indicative estimates. Airline prices change often, so our team confirms the exact price, taxes and availability on WhatsApp before you book.</p>
+          <summary class="flex items-center justify-between gap-4 font-semibold text-lg">Why don't you show prices on the website?<span class="faq-plus text-2xl text-brand-600 transition-transform">+</span></summary>
+          <p class="mt-3 text-slate-600">Airline fares change many times a day, so a price on a website is often out of date. Send us your trip details and our team replies with current fares, taxes included, on WhatsApp or email.</p>
         </details>
         <details class="group rounded-xl ring-1 ring-slate-200 bg-slate-50 p-5">
-          <summary class="flex items-center justify-between gap-4 font-semibold text-lg">Can I see prices in Canadian dollars (CAD)?<span class="faq-plus text-2xl text-brand-600 transition-transform">+</span></summary>
-          <p class="mt-3 text-slate-600">Yes. Use the USD / CAD / INR switch in the search box (or at the top of the page on larger screens). All fares update instantly. Conversions are approximate; your final quote states the exact amount.</p>
+          <summary class="flex items-center justify-between gap-4 font-semibold text-lg">Can I get my quote in Canadian dollars (CAD)?<span class="faq-plus text-2xl text-brand-600 transition-transform">+</span></summary>
+          <p class="mt-3 text-slate-600">Yes. Choose USD, CAD or INR in the quote form and we will quote in that currency.</p>
         </details>
         <details class="group rounded-xl ring-1 ring-slate-200 bg-slate-50 p-5">
           <summary class="flex items-center justify-between gap-4 font-semibold text-lg">How do I book?<span class="faq-plus text-2xl text-brand-600 transition-transform">+</span></summary>
-          <p class="mt-3 text-slate-600">Search your trip and tap <strong>Book Now</strong> on the option you like. WhatsApp opens with your trip details filled in. Our team confirms the fare, shares the payment details and issues your e-ticket.</p>
+          <p class="mt-3 text-slate-600">Fill in the quote form and tap <strong>Send on WhatsApp</strong> or <strong>Send by Email</strong>. Your trip details are filled in for you, so just press send. Our team replies with options; once you choose, we share the payment details and issue your e-ticket.</p>
         </details>
         <details class="group rounded-xl ring-1 ring-slate-200 bg-slate-50 p-5">
           <summary class="flex items-center justify-between gap-4 font-semibold text-lg">Can I hold a fare without paying?<span class="faq-plus text-2xl text-brand-600 transition-transform">+</span></summary>
-          <p class="mt-3 text-slate-600">Where the airline allows it, yes. Tap <strong>Hold Now</strong> and we'll try to hold the fare for a limited time. Held fares are not guaranteed until the ticket is issued.</p>
+          <p class="mt-3 text-slate-600">Where the airline allows it, yes. Mention it in your request and we'll try to hold the fare for a limited time. Held fares are not guaranteed until the ticket is issued.</p>
         </details>
         <details class="group rounded-xl ring-1 ring-slate-200 bg-slate-50 p-5">
           <summary class="flex items-center justify-between gap-4 font-semibold text-lg">How does the FirstFlight15 coupon work?<span class="faq-plus text-2xl text-brand-600 transition-transform">+</span></summary>
@@ -350,11 +349,11 @@
       </div>
       <form id="contactForm" class="grid grid-cols-1 gap-4 bg-white p-6 rounded-2xl shadow text-left">
         <label for="cName" class="sr-only">Your Name</label>
-        <input id="cName" name="name" type="text" placeholder="Your Name" class="px-4 py-3 rounded-lg border border-slate-300 text-base" required>
+        <input id="cName" name="name" type="text" autocomplete="name" maxlength="80" placeholder="Your Name" class="px-4 py-3 rounded-lg border border-slate-300 text-base" required>
         <label for="cEmail" class="sr-only">Your Email</label>
-        <input id="cEmail" name="email" type="email" placeholder="Your Email" class="px-4 py-3 rounded-lg border border-slate-300 text-base" required>
+        <input id="cEmail" name="email" type="email" autocomplete="email" maxlength="120" placeholder="Your Email" class="px-4 py-3 rounded-lg border border-slate-300 text-base" required>
         <label for="cMsg" class="sr-only">Message</label>
-        <textarea id="cMsg" name="message" placeholder="Message" class="px-4 py-3 rounded-lg border border-slate-300 h-32 text-base" required></textarea>
+        <textarea id="cMsg" name="message" maxlength="1000" placeholder="Message" class="px-4 py-3 rounded-lg border border-slate-300 h-32 text-base" required></textarea>
         <div class="grid md:grid-cols-2 gap-3">
           <button type="submit" data-via="whatsapp" class="bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 font-semibold">💬 Send on WhatsApp</button>
           <button type="submit" data-via="email" class="bg-brand-600 text-white py-3 rounded-lg hover:bg-brand-700 font-semibold">✉️ Send by Email</button>
@@ -376,7 +375,7 @@
       <div>
         <h3 class="text-white font-semibold mb-3">Explore</h3>
         <ul class="space-y-2">
-          <li><a href="#search" class="hover:text-white">Search Flights</a></li>
+          <li><a href="#search" class="hover:text-white">Get a Quote</a></li>
           <li><a href="#routes" class="hover:text-white">Popular Routes</a></li>
           <li><a href="#how" class="hover:text-white">How It Works</a></li>
           <li><a href="#faq" class="hover:text-white">FAQ</a></li>

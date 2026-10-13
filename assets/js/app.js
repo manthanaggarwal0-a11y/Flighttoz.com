@@ -111,15 +111,10 @@ document.getElementById('airlineStrip').innerHTML = AIRLINES.map(a => `
     <img src="assets/logos/${esc(a.logo)}" alt="${esc(a.name)}" loading="lazy" class="max-h-12 max-w-full object-contain"/>
   </div>`).join('');
 
-// Simple currency converter (approx mid-market rates, mid-2026 — update occasionally)
-const FX = { USD:1, CAD:1.40, INR:96 };
-const CURRENCIES = Object.keys(FX);
-const fmt = (amtUSD, cur) => {
-  const val = Math.round(amtUSD * FX[cur]);
-  return (cur==="INR" ? "₹" : cur==="CAD" ? "CA$" : "$") + val.toLocaleString() + " " + cur;
-};
+// Currency the visitor wants their quote in (no prices are shown on the site)
+const CURRENCIES = ['USD', 'CAD', 'INR'];
 
-// Default currency: saved choice, else guess from the visitor's time zone / language
+// Default: saved choice, else guess from the visitor's time zone / language
 function guessCurrency() {
   try {
     const saved = localStorage.getItem('ftz-currency');
@@ -142,83 +137,35 @@ function setCurrency(cur) {
     b.classList.toggle('active', on);
     b.setAttribute('aria-pressed', on);
   });
-  renderRoutes();
-  if (lastSearch) { lastSearch.cur = cur; renderResults(); }
 }
 document.querySelectorAll('.cur-btn').forEach(b => b.addEventListener('click', () => setCurrency(b.dataset.cur)));
 
-// Build a wa.me link with a prefilled message
+// Messages go straight to WhatsApp or the visitor's email app — nothing is sent to or stored on a server
+const SALES_EMAIL = "Sales@flighttoz.com";
 const waUrl = (text) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+const mailtoUrl = (subject, body) => `mailto:${SALES_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-function waLink(action, details) {
-  const msg =
-`Hello Flight to Z,
-
-${action.toUpperCase()}:
-
-Trip: ${details.trip}
-From: ${details.from}
-To: ${details.to}
-Depart: ${details.depart || "-"}
-Return: ${details.return || "-"}
-Cabin: ${details.cabin}
-Pax: A${details.adult}/C${details.child}/I${details.infant}
-
-Selected: ${details.airline} (${details.stops}), Indicative price: ${details.price}
-
-Coupon: FirstFlight15`;
-  return waUrl(msg);
+function sendMessage(via, subject, text) {
+  if (via === "email") window.location.href = mailtoUrl(subject, text);
+  else window.open(waUrl(text), "_blank", "noopener");
 }
+const viaOf = (e) => (e.submitter && e.submitter.dataset.via === "email") ? "email" : "whatsapp";
 
-// Same route always gives the same estimate, so Popular Routes "from" prices match the search results
-function routeSeed(str) {
-  let h = 0;
-  for (const ch of str) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
-  return h;
-}
-
-// Indicative offers for the entered route
-function mockOffers(from, to) {
-  const baseUSD = 650 + (routeSeed(from + to) % 400); // 650–1049
-  const picks = [
-    { airline:"Qatar Airways", code:"QR", stops:"1 Stop",  usd: baseUSD+40, duration:"18h 20m" },
-    { airline:"Emirates",      code:"EK", stops:"1 Stop",  usd: baseUSD+20, duration:"17h 55m" },
-    { airline:"Etihad",        code:"EY", stops:"1 Stop",  usd: baseUSD+10, duration:"18h 05m" },
-    { airline:"Air India",     code:"AI", stops:"Non-stop",usd: baseUSD+80, duration:"14h 50m" },
-    { airline:"Air Canada",    code:"AC", stops:"Non-stop",usd: baseUSD+90, duration:"14h 40m" },
-    { airline:"United Airlines",code:"UA",stops:"1 Stop",  usd: baseUSD-10, duration:"19h 15m" },
-    { airline:"Lufthansa",     code:"LH", stops:"1 Stop",  usd: baseUSD+60, duration:"16h 30m" },
-    { airline:"SWISS",         code:"LX", stops:"2 Stops", usd: baseUSD-30, duration:"22h 10m" },
-    { airline:"Air France",    code:"AF", stops:"2 Stops", usd: baseUSD-50, duration:"22h 45m" },
-    { airline:"KLM",           code:"KL", stops:"1 Stop",  usd: baseUSD+15, duration:"17h 35m" },
-    { airline:"Delta Air Lines",code:"DL",stops:"Multi",   usd: baseUSD-70, duration:"24h 20m" }
-  ];
-  return picks.map(p => {
-    const logo = AIRLINES.find(a=>a.code===p.code)?.logo || "airline.png";
-    return { ...p, logo, from, to };
-  });
-}
-
-// Popular routes: tap to prefill the search form
+// Popular routes: tap to prefill the quote form
 const ROUTES = [
   ["YYZ","DEL","🇨🇦 → 🇮🇳"], ["YVR","DEL","🇨🇦 → 🇮🇳"], ["YYZ","ATQ","🇨🇦 → 🇮🇳"],
   ["YYC","DEL","🇨🇦 → 🇮🇳"], ["JFK","DEL","🇺🇸 → 🇮🇳"], ["SFO","BLR","🇺🇸 → 🇮🇳"]
 ];
 const cityOf = (code) => (AIRPORTS.find(a => a[0] === code) || [code, code])[1];
 
-function renderRoutes() {
-  document.getElementById('routeGrid').innerHTML = ROUTES.map(([from, to, flags]) => {
-    const fromUSD = Math.min(...mockOffers(from, to).map(o => o.usd));
-    return `
-      <button type="button" class="route-card text-left rounded-2xl bg-white p-5 ring-1 ring-slate-200 shadow-sm hover:shadow-md hover:ring-brand-500 transition" data-from="${esc(from)}" data-to="${esc(to)}">
-        <span class="flex items-center justify-between text-sm text-slate-500"><span>${esc(flags)}</span><span>Round-trip</span></span>
-        <span class="block mt-2 text-xl font-bold">${esc(cityOf(from))} → ${esc(cityOf(to))}</span>
-        <span class="block text-sm text-slate-500">${esc(from)} → ${esc(to)}</span>
-        <span class="block mt-4 text-sm text-slate-600">from <span class="text-2xl font-extrabold text-brand-600">${esc(fmt(fromUSD, currency))}</span></span>
-        <span class="block mt-1 text-xs text-slate-500">Indicative estimate</span>
-      </button>`;
-  }).join('');
-}
+document.getElementById('routeGrid').innerHTML = ROUTES.map(([from, to, flags]) => `
+  <button type="button" class="route-card text-left rounded-2xl bg-white p-5 ring-1 ring-slate-200 shadow-sm hover:shadow-md hover:ring-brand-500 transition" data-from="${esc(from)}" data-to="${esc(to)}">
+    <span class="flex items-center justify-between text-sm text-slate-500"><span>${esc(flags)}</span><span>Round-trip</span></span>
+    <span class="block mt-2 text-xl font-bold">${esc(cityOf(from))} → ${esc(cityOf(to))}</span>
+    <span class="block text-sm text-slate-500">${esc(from)} → ${esc(to)}</span>
+    <span class="block mt-4 font-semibold text-brand-700">Get a free quote →</span>
+  </button>`).join('');
+
 document.getElementById('routeGrid').addEventListener('click', (e) => {
   const card = e.target.closest('.route-card');
   if (!card) return;
@@ -250,95 +197,76 @@ function parseAirport(text) {
   return byCity ? byCity[0] : "";
 }
 
-const errorEl = document.getElementById('formError');
-const showError = (msg) => { errorEl.textContent = msg; errorEl.classList.remove('hidden'); };
-
-let lastSearch = null;
-let stopFilter = "all";
-
-function renderResults() {
-  if (!lastSearch) return;
-  const { offers, details, cur } = lastSearch;
-  const shown = offers.filter(o => stopFilter === "all" || o.stops === stopFilter);
-  const resultsGrid = document.getElementById('resultsGrid');
-  if (!shown.length) {
-    resultsGrid.innerHTML = `<p class="text-sm text-slate-600 md:col-span-2">No ${esc(stopFilter.toLowerCase())} options for this route. Message us on WhatsApp and we'll find one.</p>`;
-    return;
-  }
-  resultsGrid.innerHTML = shown.map(o=>{
-    const price = fmt(o.usd, cur);
-    const d = { ...details, airline:o.airline, stops:o.stops, price };
-    const bookLink = waLink('Book Now', d);
-    const holdLink = waLink('Hold Now', d);
-    return `
-      <div class="p-4 bg-white rounded-xl shadow-sm ring-1 ring-slate-200 flex gap-4">
-        <img src="assets/logos/${esc(o.logo)}" alt="${esc(o.airline)}" loading="lazy" class="w-14 h-14 object-contain rounded bg-white border"/>
-        <div class="flex-1 min-w-0">
-          <div class="flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
-            <div>
-              <p class="font-semibold">${esc(o.airline)}</p>
-              <p class="text-xs text-slate-600">${esc(o.stops)} • ~${esc(o.duration)}</p>
-            </div>
-            <div>
-              <p class="text-brand-600 font-extrabold">from ${esc(price)}</p>
-              <p class="text-[11px] text-slate-500">estimate • coupon <span class="font-semibold">FirstFlight15</span></p>
-            </div>
-          </div>
-          <p class="text-sm text-slate-700 mt-1">${esc(o.from)} → ${esc(o.to)} &nbsp;|&nbsp; ${esc(d.cabin)} &nbsp;|&nbsp; Pax A${esc(d.adult)}/C${esc(d.child)}/I${esc(d.infant)}</p>
-          <div class="mt-3 flex gap-2">
-            <a href="${esc(bookLink)}" target="_blank" rel="noopener" class="px-3 py-2 rounded-lg bg-brand-600 text-white text-sm font-semibold hover:bg-brand-700">Book Now</a>
-            <a href="${esc(holdLink)}" target="_blank" rel="noopener" class="px-3 py-2 rounded-lg bg-white border text-sm font-semibold hover:bg-slate-50">Hold Now</a>
-          </div>
-        </div>
-      </div>
-    `;
-  }).join('');
+// Known airports get their full label; any other city is passed on as typed
+function placeLabel(text) {
+  const code = parseAirport(text);
+  return code ? airportLabel(code) : text.trim().replace(/\s+/g, ' ').slice(0, 60);
 }
 
-document.querySelectorAll('.stop-chip').forEach(chip => chip.addEventListener('click', () => {
-  stopFilter = chip.dataset.stops;
-  document.querySelectorAll('.stop-chip').forEach(c => {
-    c.classList.toggle('active', c === chip);
-    c.setAttribute('aria-pressed', c === chip);
-  });
-  renderResults();
-}));
+const errorEl = document.getElementById('formError');
+const showError = (msg) => { errorEl.textContent = msg; errorEl.classList.remove('hidden'); };
+const quoteSent = document.getElementById('quoteSent');
+const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 
-// Form handling
-document.getElementById('flightForm').addEventListener('submit', (e)=>{
+// Quote form → WhatsApp or email
+document.getElementById('flightForm').addEventListener('submit', (e) => {
   e.preventDefault();
   errorEl.classList.add('hidden');
+  quoteSent.classList.add('hidden');
 
-  const from = parseAirport(document.getElementById('from').value);
-  const to = parseAirport(document.getElementById('to').value);
+  const fromText = document.getElementById('from').value.trim();
+  const toText = document.getElementById('to').value.trim();
+  const from = placeLabel(fromText);
+  const to = placeLabel(toText);
   const depart = departEl.value;
-  const ret = returnEl.value;
+  const ret = tripType === "round" ? returnEl.value : "";
   const adult = +document.getElementById('adult').value;
   const child = +document.getElementById('child').value;
   const infant = +document.getElementById('infant').value;
+  const cabinValue = document.getElementById('cabin').value;
+  const cabin = CABINS.includes(cabinValue) ? cabinValue : 'Economy';
+  const name = document.getElementById('qName').value.trim();
+  const phone = document.getElementById('qPhone').value.trim();
+  const notes = document.getElementById('qNotes').value.trim();
 
-  if (!from || !to) return showError("Please select valid airports from the list (e.g., DEL — New Delhi).");
-  if (from === to) return showError("From and To airports can't be the same.");
+  if (from.length < 2 || to.length < 2) return showError("Please enter where you're flying from and to.");
+  if (from.toLowerCase() === to.toLowerCase()) return showError("From and To can't be the same.");
   if (!depart) return showError("Please choose a departure date.");
   if (depart < todayISO()) return showError("Departure date can't be in the past.");
   if (tripType === "round" && !ret) return showError("Please choose a return date, or switch to One-way.");
   if (ret && ret < depart) return showError("Return date can't be before the departure date.");
-  if (adult + child > MAX_PAX) return showError(`Maximum ${MAX_PAX} passengers (adults + children) per booking. For groups, message us on WhatsApp.`);
+  if (adult + child > MAX_PAX) return showError(`Maximum ${MAX_PAX} passengers (adults + children) per request. For groups, tell us in the notes.`);
   if (infant > adult) return showError("Each infant must travel with an adult — infants can't be more than adults.");
+  if (!name) return showError("Please enter your name so we know who to reply to.");
 
-  const details = {
-    trip: tripType === "round" ? "Round-trip" : "One-way",
-    from, to, depart, return: tripType === "round" ? ret : "",
-    cabin: CABINS.includes(document.getElementById('cabin').value) ? document.getElementById('cabin').value : 'Economy', adult, child, infant
-  };
-  lastSearch = { offers: mockOffers(from, to), details, cur: currency };
+  const text =
+`Hello Flight to Z,
 
-  document.getElementById('resultsWrap').classList.remove('hidden');
-  renderResults();
-  document.getElementById('resultsWrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+Please send me a quote for this trip:
+
+Name: ${name}
+Phone / WhatsApp: ${phone || "-"}
+Trip: ${tripType === "round" ? "Round-trip" : "One-way"}
+From: ${from}
+To: ${to}
+Depart: ${depart}
+Return: ${ret || "-"}
+Cabin: ${cabin}
+Passengers: ${plural(adult, "adult", "adults")}, ${plural(child, "child", "children")}, ${plural(infant, "infant", "infants")}
+Quote currency: ${currency}
+Notes: ${notes || "-"}
+
+Coupon: FirstFlight15`;
+
+  const via = viaOf(e);
+  sendMessage(via, `Flight quote request: ${from} to ${to}`, text);
+  document.getElementById('quoteSentText').textContent = via === "email"
+    ? "Your email app has opened with your trip details. Press Send, and our team will reply with the best fares."
+    : "WhatsApp has opened with your trip details. Press Send, and our team will reply with the best fares.";
+  quoteSent.classList.remove('hidden');
 });
 
-// Contact form → WhatsApp or email (no server needed)
+// Contact form → WhatsApp or email
 document.getElementById('contactForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const form = e.target;
@@ -351,11 +279,7 @@ document.getElementById('contactForm').addEventListener('submit', (e) => {
     return;
   }
   const text = `Hello Flight to Z,\n\nName: ${name}\nEmail: ${email}\n\n${message}`;
-  if (e.submitter && e.submitter.dataset.via === "email") {
-    window.location.href = `mailto:Sales@flighttoz.com?subject=${encodeURIComponent("Website enquiry from " + name)}&body=${encodeURIComponent(text)}`;
-  } else {
-    window.open(waUrl(text), "_blank", "noopener");
-  }
+  sendMessage(viaOf(e), "Website enquiry from " + name, text);
 });
 
 setCurrency(currency);
