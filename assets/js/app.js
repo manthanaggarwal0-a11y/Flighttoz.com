@@ -151,6 +151,22 @@ function sendMessage(via, subject, text) {
 }
 const viaOf = (e) => (e.submitter && e.submitter.dataset.via === "email") ? "email" : "whatsapp";
 
+// Where the visitor came from (ad UTM tags), added to messages so each lead shows its source.
+// Kept for this browser tab only; values are trimmed to letters, digits, - and _.
+function leadSource() {
+  const clean = (v) => (v || "").replace(/[^A-Za-z0-9_-]/g, "").slice(0, 40);
+  try {
+    const q = new URLSearchParams(location.search);
+    const tags = ["utm_source", "utm_medium", "utm_campaign", "utm_content"].map(k => clean(q.get(k)));
+    if (tags[0]) sessionStorage.setItem("ftz-source", tags.filter(Boolean).join(" / "));
+    return sessionStorage.getItem("ftz-source") || "";
+  } catch (e) {
+    return "";
+  }
+}
+const SOURCE = leadSource();
+const sourceLine = () => SOURCE ? `\nSource: ${SOURCE}` : "";
+
 // Popular routes: tap to prefill the quote form
 const ROUTES = [
   ["YYZ","DEL","🇨🇦 → 🇮🇳"], ["YVR","DEL","🇨🇦 → 🇮🇳"], ["YYZ","ATQ","🇨🇦 → 🇮🇳"],
@@ -256,7 +272,7 @@ Passengers: ${plural(adult, "adult", "adults")}, ${plural(child, "child", "child
 Quote currency: ${currency}
 Notes: ${notes || "-"}
 
-Coupon: FirstFlight15`;
+Coupon: FirstFlight15${sourceLine()}`;
 
   const via = viaOf(e);
   sendMessage(via, `Flight quote request: ${from} to ${to}`, text);
@@ -278,7 +294,7 @@ document.getElementById('contactForm').addEventListener('submit', (e) => {
     (name ? form.elements.message : form.elements.name).focus();
     return;
   }
-  const text = `Hello Flight to Z,\n\nName: ${name}\nEmail: ${email}\n\n${message}`;
+  const text = `Hello Flight to Z,\n\nName: ${name}\nEmail: ${email}\n\n${message}${sourceLine() ? "\n" + sourceLine() : ""}`;
   sendMessage(viaOf(e), "Website enquiry from " + name, text);
 });
 
