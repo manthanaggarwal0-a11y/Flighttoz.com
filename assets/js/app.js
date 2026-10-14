@@ -91,26 +91,6 @@ document.querySelectorAll('.trip-btn').forEach(btn => btn.addEventListener('clic
   if (oneWay) returnEl.value = "";
 }));
 
-// --- Airlines + logo filenames (place files in /assets/logos/) ---
-const AIRLINES = [
-  { code:"QR", name:"Qatar Airways", logo:"qatar.png" },
-  { code:"EK", name:"Emirates", logo:"emirates.png" },
-  { code:"EY", name:"Etihad", logo:"etihad.png" },
-  { code:"AI", name:"Air India", logo:"air-india.png" },
-  { code:"AC", name:"Air Canada", logo:"air-canada.png" },
-  { code:"UA", name:"United Airlines", logo:"united.png" },
-  { code:"LH", name:"Lufthansa", logo:"lufthansa.png" },
-  { code:"LX", name:"SWISS", logo:"swiss.png" },
-  { code:"AF", name:"Air France", logo:"air-france.png" },
-  { code:"KL", name:"KLM", logo:"klm.png" },
-  { code:"DL", name:"Delta Air Lines", logo:"delta.png" }
-];
-
-document.getElementById('airlineStrip').innerHTML = AIRLINES.map(a => `
-  <div class="flex h-16 w-28 md:w-32 items-center justify-center rounded-xl bg-white ring-1 ring-slate-200 p-2" title="${esc(a.name)}">
-    <img src="assets/logos/${esc(a.logo)}" alt="${esc(a.name)}" loading="lazy" class="max-h-12 max-w-full object-contain"/>
-  </div>`).join('');
-
 // Currency the visitor wants their quote in (no prices are shown on the site)
 const CURRENCIES = ['USD', 'CAD', 'INR'];
 
@@ -154,23 +134,34 @@ const viaOf = (e) => (e.submitter && e.submitter.dataset.via === "email") ? "ema
 // Where the visitor came from (ad UTM tags), added to messages so each lead shows its source.
 // Kept for this browser tab only; values are trimmed to letters, digits, - and _.
 function leadSource() {
-  const clean = (v) => (v || "").replace(/[^A-Za-z0-9_-]/g, "").slice(0, 40);
+  const clean = (v, max) => (v || "").replace(/[^A-Za-z0-9_-]/g, "").slice(0, max);
   try {
     const q = new URLSearchParams(location.search);
-    const tags = ["utm_source", "utm_medium", "utm_campaign", "utm_content"].map(k => clean(q.get(k)));
+    const tags = ["utm_source", "utm_medium", "utm_campaign", "utm_content"].map(k => clean(q.get(k), 40));
     if (tags[0]) sessionStorage.setItem("ftz-source", tags.filter(Boolean).join(" / "));
-    return sessionStorage.getItem("ftz-source") || "";
+    const gclid = clean(q.get("gclid"), 120);
+    if (gclid) sessionStorage.setItem("ftz-gclid", gclid);
+    return {
+      source: sessionStorage.getItem("ftz-source") || (gclid ? "google / cpc" : ""),
+      gclid: sessionStorage.getItem("ftz-gclid") || "",
+    };
   } catch (e) {
-    return "";
+    return { source: "", gclid: "" };
   }
 }
 const SOURCE = leadSource();
-const sourceLine = () => SOURCE ? `\nSource: ${SOURCE}` : "";
+const sourceLine = () =>
+  (SOURCE.source ? `\nSource: ${SOURCE.source}` : "") + (SOURCE.gclid ? `\nClick ID: ${SOURCE.gclid}` : "");
+
+// Plain WhatsApp links on the page also open with a short message and the ad source
+document.querySelectorAll('a[href^="https://wa.me/' + WHATSAPP_NUMBER + '"]').forEach(a => {
+  a.href = waUrl("Hi Flight to Z, I'd like a flight quote." + (sourceLine() ? "\n" + sourceLine() : ""));
+});
 
 // Popular routes: tap to prefill the quote form
 const ROUTES = [
-  ["YYZ","DEL","🇨🇦 → 🇮🇳"], ["YVR","DEL","🇨🇦 → 🇮🇳"], ["YYZ","ATQ","🇨🇦 → 🇮🇳"],
-  ["YYC","DEL","🇨🇦 → 🇮🇳"], ["JFK","DEL","🇺🇸 → 🇮🇳"], ["SFO","BLR","🇺🇸 → 🇮🇳"]
+  ["YYC","DEL","🇨🇦 → 🇮🇳"], ["YEG","ATQ","🇨🇦 → 🇮🇳"], ["YWG","DEL","🇨🇦 → 🇮🇳"],
+  ["EWR","DEL","🇺🇸 → 🇮🇳"], ["JFK","AMD","🇺🇸 → 🇮🇳"], ["IAH","HYD","🇺🇸 → 🇮🇳"]
 ];
 const cityOf = (code) => (AIRPORTS.find(a => a[0] === code) || [code, code])[1];
 
@@ -270,15 +261,13 @@ Return: ${ret || "-"}
 Cabin: ${cabin}
 Passengers: ${plural(adult, "adult", "adults")}, ${plural(child, "child", "children")}, ${plural(infant, "infant", "infants")}
 Quote currency: ${currency}
-Notes: ${notes || "-"}
-
-Coupon: FirstFlight15${sourceLine()}`;
+Notes: ${notes || "-"}${sourceLine() ? "\n" + sourceLine() : ""}`;
 
   const via = viaOf(e);
   sendMessage(via, `Flight quote request: ${from} to ${to}`, text);
   document.getElementById('quoteSentText').textContent = via === "email"
-    ? "Your email app has opened with your trip details. Press Send, and our team will reply with the best fares."
-    : "WhatsApp has opened with your trip details. Press Send, and our team will reply with the best fares.";
+    ? "Your email app has opened with your trip details. Press Send, and our team will reply with fare options."
+    : "WhatsApp has opened with your trip details. Press Send, and our team will reply with fare options.";
   quoteSent.classList.remove('hidden');
 });
 
